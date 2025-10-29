@@ -1,0 +1,19 @@
+/*
+  Main SCSS Entry Point
+  ---------------------
+  This file imports all the partials.
+  Zola will compile this one file into:
+  /public/assets/css/style.css
+*/
+
+// 1. Variables (Colors, Fonts, Layout)
+@use 'variables';
+
+// 2. Base (Reset, Typography, Base styles)
+@use 'base';
+
+// 3. Layout (Container, Header, Main, Footer)
+@use 'layout';
+
+// 4. Navigation (Mobile & Desktop Nav, Dropdown)
+@use 'navigation';

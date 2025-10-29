@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="blog-section">
+  {% if section.pages | length == 0 %}
+  <div class="blog text-center">
+    <h1>No Blog Yet</h1>
+  </div>
+  {% else %}
+  <div class="blog">
+    <h1>OlyPrep Blog</h1>
+  </div>
+  <div class="blog-list">
+    {% for post in section.pages %}
+    <div class="blog-card">
+      <div class="blog-content">
+        <h2 class="blog-title">{{ post.title }}</h2>
+        <div class="blog-meta">
+          {% if post.authors | length != 0 %}
+          <span class="author">By
+            {% if post.authors | length == 1 %}
+              {{ post.authors[0] }}
+            {% else %}
+              {{ post.authors | slice(end = post.authors | length - 1) | join(sep=", ") }}
+              and {{ post.authors | last }}
+            {% endif %}
+          </span> |
+          {% endif %}
+          <span class="date">{{ post.date | date(format="%B %e, %Y") }}</span>
+        </div>
+        <div class="blog-excerpt">{{ post.summary | safe }}</div>
+        <a href="{{ post.permalink }}" class="read-more">Read More</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+{% endblock content %}

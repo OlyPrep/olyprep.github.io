@@ -1,0 +1,55 @@
+/*
+  Variables Partial
+  -----------------
+  Defines static variables (fonts, layout) and
+  dynamic theme variables (colors) for light and dark modes.
+*/
+
+// --- Static Variables ---
+
+// Fonts
+$font-primary: -apple-system, 'Segoe UI', Roboto, Cantarell, 'Open Sans', sans-serif;
+$font-mono: 'Courier New', Courier, monospace;
+
+// Layout
+$breakpoint-tablet: 768px;
+$container-width: 1100px;
+$spacing-base: 1rem; // ~16px
+$border-radius: 8px;
+$header-height: 70px;
+
+// --- Dynamic Theme Variables (Colors) ---
+
+:root {
+  // Light Theme (Default)
+  --bg-color: #ffffff;
+  --bg-secondary: #f4f6f8;
+  --text-color: #111827;
+  --text-muted: #6b7280;
+  --border-color: #e5e7eb;
+  --accent-color: #3b82f6; // Blue
+  --accent-text: #ffffff;
+
+  // Navbar specific colors for light mode
+  --nav-bg-color: #1f2937; // A dark color for contrast
+  --nav-bg-secondary: #374151; // A slightly lighter dark shade for hover/active
+  --nav-text-color: #f4f6f8; // Light text
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    // Dark Theme
+    --bg-color: #111827;
+    --bg-secondary: #1f2937;
+    --text-color: #f4f6f8;
+    --text-muted: #9ca3af;
+    --border-color: #374151;
+    --accent-color: #60a5fa; // Lighter Blue for dark mode
+    --accent-text: #111827;
+
+    // Navbar specific colors for dark mode
+    --nav-bg-color: #1f2937; // Same as secondary bg for a unified dark look
+    --nav-bg-secondary: #374151; // A slightly lighter shade for hover/active
+    --nav-text-color: #f4f6f8; // Light text
+  }
+}

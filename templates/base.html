@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      {% block title %}
+      {% if page %}
+        {{ page.title }}
+      {% elif section %}
+        {{ section.title }}
+      {% endif %}
+      {% endblock title %}
+      - OlyPrep
+    </title>
+    <link rel="icon" href="/assets/favico.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="/js/nav.js"></script>
+    {% block head_extra %}{% endblock head_extra %}
+  </head>
+
+  <body>
+    <header>
+      <div id="nav-container">
+        <nav>
+          <a id="nav-logo" href="/">
+            <img class="logo" src="/assets/logo.svg" alt="OlyPrep Logo">
+            <span id="logo-text-oly">Oly</span>
+            <span id="logo-text-prep">Prep</span>
+          </a>
+          <ul id="nav-menu">
+            <li><span id="nav-home"><a href="/">Home</a></span></li>
+            <li>
+              <span id="nav-olympiad">
+              <a href="/olympiad">Olympiads</a>
+              <button class="dropdown-menu-toggle" aria-label="Toggle dropdown menu"><span>▼</span></button>
+              </span>
+              <ul id="nav-dropdown-menu">
+                <li><span><a href="/olympiad/ioi">IOI</a></span></li>
+                <li><span><a href="/olympiad/ijso">IJSO</a></span></li>
+              </ul>
+            </li>
+            <li><span id="nav-blog"><a href="/blog">Blog</a></span></li>
+            <li><span id="nav-about"><a href="/about">About</a></span></li>
+          </ul>
+          <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      {% block content %}
+      {% if page %}
+        {{ page.content | safe }}
+      {% elif section %}
+        {{ section.content | safe }}
+      {% endif %}
+      {% endblock content %}
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2025 OlyPrep contributors.</p>
+      </div>
+    </footer>
+  </body>
+</html>
