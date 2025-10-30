@@ -1,39 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="blog-section">
-  {% if section.pages | length == 0 %}
-  <div class="blog text-center">
-    <h1>No Blog Yet</h1>
-  </div>
-  {% else %}
-  <div class="blog">
-    <h1>OlyPrep Blog</h1>
-  </div>
-  <div class="blog-list">
-    {% for post in section.pages %}
-    <div class="blog-card">
-      <div class="blog-content">
-        <h2 class="blog-title">{{ post.title }}</h2>
-        <div class="blog-meta">
-          {% if post.authors | length != 0 %}
-          <span class="author">By
-            {% if post.authors | length == 1 %}
-              {{ post.authors[0] }}
-            {% else %}
-              {{ post.authors | slice(end = post.authors | length - 1) | join(sep=", ") }}
-              and {{ post.authors | last }}
-            {% endif %}
-          </span> |
-          {% endif %}
-          <span class="date">{{ post.date | date(format="%B %e, %Y") }}</span>
-        </div>
-        <div class="blog-excerpt">{{ post.summary | safe }}</div>
-        <a href="{{ post.permalink }}" class="read-more">Read More</a>
+<section class="section">
+  <div class="container">
+    {% if section.pages | length == 0 %}
+      <div class="has-text-centered">
+        <h1 class="title is-1">No Blog Yet</h1>
       </div>
-    </div>
-    {% endfor %}
+    {% else %}
+      <h1 class="title is-1">OlyPrep Blog</h1>
+      <div class="columns is-multiline">
+        {% for post in section.pages %}
+        <div class="column is-one-third">
+          <a href="{{ post.permalink }}" class="blog-card-link">
+            <div class="card">
+              <div class="card-content">
+                <p class="title is-4">{{ post.title }}</p>
+                <div class="content">
+                  <time datetime="{{ post.date | date(format='%Y-%m-%d') }}">{{ post.date | date(format="%B %e, %Y") }}</time>
+                </div>
+                {% if post.summary %}
+                <div class="content">
+                  {{ post.summary | safe }}...
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    {% endif %}
   </div>
-  {% endif %}
-</div>
+</section>
 {% endblock content %}

@@ -1,0 +1,6 @@
+<details class="spoiler">
+  <summary>{{ title | default(value="Spoiler") }}</summary>
+  <div class="spoiler-content">
+    {{ body | markdown | safe }}
+  </div>
+</details>

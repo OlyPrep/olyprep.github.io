@@ -1,32 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-<article>
-  <div class="post-header">
-    <h1 class="post-title">{{ page.title }}</h1>
-    <div class="post-meta">
-      <span class="author">By
-        {% if page.authors | length == 1 %}
-        {{ page.authors[0] }}
-        {% else %}
-        {{ page.authors | slice(end = page.authors | length - 1) | join(sep=", ") }}
-        and {{ page.authors | last }}
-        {% endif %}
-      </span> |
-      <span class="date"><time datetime="{{ page.date | date(format='%Y-%m-%d') }}">
-        Published: {{ page.date | date(format='%B %e, %Y') }}
-      </time></span>
-      {% if page.updated and page.updated != page.date %}
-      | <span class="date"><time datetime="{{ page.updated | date(format='%Y-%m-%d') }}">
-        Updated: {{ page.updated | date(format='%B %e, %Y') }}
-      </time></span>
-      {% endif %}
-
+<section class="section">
+  <div class="container">
+    <div class="content">
+      <div class="">
+        <h1 class="title is-1">{{ page.title }}</h1>
+        <p class="subtitle is-6 mt-4">
+          <span class="author">
+            {% if page.authors | length == 1 %}
+            {{ page.authors[0] }}
+            {% else %}
+            {{ page.authors | slice(end = page.authors | length - 1) | join(sep=", ") }}
+            and {{ page.authors | last }}
+            {% endif %}
+          </span> —
+          <time datetime="{{ page.date | date(format='%Y-%m-%d') }}">
+            {{ page.date | date(format='%B %e, %Y') }}
+          </time>
+          {% if page.updated and page.updated != page.date %}
+          — <time datetime="{{ page.updated | date(format='%Y-%m-%d') }}">
+            Updated on {{ page.updated | date(format='%B %e, %Y') }}
+          </time>
+          {% endif %}
+        </p>
+      </div>
+      <hr/>
+      {{ page.content | safe }}
     </div>
   </div>
-  <hr/>
-  <div class="post-content">
-    {{ page.content | safe }}
-  </div>
-</article>
+</section>
 {% endblock content %}
