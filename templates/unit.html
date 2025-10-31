@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ section.title }}
+{% endblock title %}
+
+{% block content %}
+
+{% set path = section.path | split(pat="/") %}
+{% set olymap = load_data(path="content/olympiad/" ~ path[2] ~ "/map.json", format="json") %}
+{% set secmap = olymap[path[3]] %}
+
+<section class="section">
+  <div class="container">
+    <h1 class="title is-1">{{ section.title }}</h1>
+    <div class="content">
+      <ul>
+        {% for section, topics in secmap %}
+        <li>
+          <p>{{ section }}</p>
+          <ul>
+            {% for topic in topics %}
+            <li><a href="{{ get_url(path='olympiad/' ~ path[2] ~ '/' ~ path[3] ~ '/' ~ topic.id ~ '/') }}">{{ topic.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+{% endblock content %}

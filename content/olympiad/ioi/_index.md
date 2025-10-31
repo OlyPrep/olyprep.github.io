@@ -3,4 +3,4 @@ title = "IOI"
 template = "base.html"
 +++
 
-# Did you mean [IJSO](../ijso/)?
+# Go to [Intro](./intro/)
