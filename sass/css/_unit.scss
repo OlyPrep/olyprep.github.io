@@ -1,5 +1,5 @@
 .group-grid > .grid {
-  --bulma-grid-gap: 4rem;
+  --bulma-grid-gap: 6.5rem;
   --bulma-grid-column-count: 2;
   @media screen and (max-width: 768px) {
     --bulma-grid-column-count: 1;
@@ -20,32 +20,68 @@
   color: var(--bulma-text);
 }
 
-.group-cell > a:hover {
-  text-decoration: none;
-  color: var(--bulma-text-light);
+@media (hover: hover) {
+  .group-cell > a:hover {
+    text-decoration: none;
+    color: var(--bulma-text-light);
+  }
 }
 
 .group-cell > a > div {
   transition: padding var(--bulma-duration) ease-in-out;
 }
 
-.even-cell > a:hover > div {
-  padding-left: 1rem;
+.even-cell > a > div {
+  padding-left: 0;
+  padding-right: 1rem;
+}
+
+@media (hover: hover) {
+  .even-cell > a:hover > div {
+    padding-left: 1rem;
+    padding-right: 0;
+  }
 }
 
 @media screen and (max-width: 768px) {
-  .odd-cell > a:hover > div {
-    padding-left: 1rem;
+  .odd-cell > a > div {
+    padding-left: 0;
+    padding-right: 1rem;
   }
+
+  @media (hover: hover) {
+    .odd-cell > a:hover > div {
+      padding-left: 1rem;
+      padding-right: 0;
+    }
+  }
+}
+
+.even-cell .lesson-link .lesson-icon {
+  margin-right: 0.5rem;
 }
 
 @media screen and (min-width: 769px) {
   .odd-cell {
     text-align: right;
+    .lesson-link {
+      flex-direction: row-reverse;
+      .lesson-icon {
+        margin-left: 0.5rem;
+      }
+    }
   }
 
-  .odd-cell > a:hover > div {
-    padding-right: 1rem;
+  .odd-cell > a > div {
+    padding-left: 1rem;
+    padding-right: 0;
+  }
+
+  @media (hover: hover) {
+    .odd-cell > a:hover > div {
+      padding-left: 0;
+      padding-right: 1rem;
+    }
   }
 }
 

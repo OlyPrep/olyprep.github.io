@@ -1,0 +1,38 @@
+{% import "snippet.html" as snippet %}
+{% extends "base.html" %}
+
+{% block title %}
+{{ section.title }}
+{% endblock title %}
+
+{% block content %}
+{% set path = section.path | split(pat="/") %}
+{% set olympiad_map = load_data(path="content/olympiad/" ~ path[2] ~ "/map.json", format="json") %}
+<main class="main-content">
+  <section class="hero is-primary is-halfheight">
+    <div class="hero-body">
+      <div class="has-text-centered">
+        <h1 class="title is-1 is-spaced">{{ section.title }}</h1>
+        <p class="subtitle">{{ section.description }}</p>
+      </div>
+    </div>
+  </section>
+  <section class="section olympiad-toc-section">
+    <div class="container olympiad-toc is-fullhd">
+      {% for uid, map in olympiad_map %}
+      {% set unit = get_section(path='olympiad/' ~ path[2] ~ '/' ~ uid ~ '/_index.md') %}
+      <div class="unit-name-sticky">
+        <h2 class="title is-2">{{ unit.title }}</h2>
+        <p class="is-size-6 mb-5 is-hidden-mobile">{{ unit.description }}</p>
+        <a class="button" href="{{ unit.permalink }}">
+          More<span class="ml-1"><i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+      </div>
+      <p class="is-size-6 mt-2 mb-6 is-hidden-tablet">{{ unit.description }}</p>
+      {{ snippet::unit_lessons(oly=path[2], unit=uid) }}
+    </div>
+    {% endfor %}
+</div>
+  </section>
+</main>
+{% endblock content %}
