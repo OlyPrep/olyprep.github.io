@@ -1,0 +1,128 @@
+/* --- navbar --- */
+#brand-logo {
+  max-height: 2.5rem;
+  margin-right: 5px;
+}
+
+#brand-text {
+  font-size: 1.25rem;
+}
+
+.navbar-item,
+.navbar-link {
+  font-size: 1rem;
+}
+
+/* By default, disable the burger hover effect to prevent sticky hover on mobile */
+.navbar-burger:hover {
+  background-color: transparent;
+}
+
+.navbar .navbar-dropdown {
+  background-color: var(--bulma-navbar-background-color);
+  border-top: 1px solid var(--bulma-navbar-divider-background-color);
+}
+.navbar .navbar-dropdown a.navbar-item {
+  background-color: var(--bulma-navbar-background-color);
+  color: var(--bulma-navbar);
+}
+
+.navbar-dropdown {
+  font-size: 1rem;
+}
+
+.navbar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 19; /* Below navbar-menu (z-index: 20) */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--bulma-duration) ease-in-out, visibility var(--bulma-duration) ease-in-out;
+}
+
+.navbar-overlay.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Custom brand text colors (taken from logo) */
+.navbar #brand-text-oly {
+  color: #fcfcfc;
+}
+.navbar #brand-text-prep {
+  color: #e97d28;
+}
+
+@media (hover: hover) {
+  .navbar .navbar-item.has-dropdown:hover > .navbar-dropdown {
+    display: block;
+  }
+  .navbar .navbar-dropdown a.navbar-item:hover,
+  .navbar a.navbar-item:hover,
+  .navbar a.navbar-link:hover {
+    background-color: var(--bulma-navbar-item-hover-background-color);
+    color: var(--bulma-primary) !important;
+  }
+
+  /* Add a hover effect for the burger on desktop only */
+  .navbar .navbar-burger:hover {
+    background-color: var(--bulma-navbar-item-hover-background-color);
+  }
+}
+
+@mixin navbar-force-dropdown-open {
+  /* Force the mobile dropdown to be permanently visible and styled as a list */
+  .navbar-menu.is-active .navbar-item.has-dropdown .navbar-dropdown {
+    display: block;
+  }
+
+  .navbar-menu .navbar-item.has-dropdown .navbar-dropdown {
+    position: static;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  /* Hide the arrow on the "Olympiads" link */
+  .navbar-menu .navbar-item.has-dropdown > .navbar-link::after {
+    display: none;
+  }
+
+  /* Style the submenu items */
+  .navbar-menu .navbar-dropdown .navbar-item {
+    padding-left: 2rem; /* Indent the submenu items */
+  }
+}
+
+@mixin navbar-animate {
+  .navbar-menu {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--bulma-duration) ease-in-out, padding var(--bulma-duration) ease-in-out;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 100%;
+    background-color: var(--bulma-navbar-background-color);
+    box-shadow: 0 8px 16px rgba(0,0,0,.1);
+    padding: 0;
+  }
+
+  .navbar-menu.is-active {
+    max-height: 100vh;
+    padding: .5rem 0;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  @include navbar-force-dropdown-open;
+  .navbar.main-navbar {
+    @include navbar-animate;
+  }
+}

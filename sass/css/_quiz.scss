@@ -1,0 +1,20 @@
+.quiz-container {
+  border: 1px solid var(--bulma-border);
+  border-radius: 6px;
+  padding: 1.5em;
+  margin: 1.5em 0;
+  background-color: var(--bulma-scheme-main-ter);
+}
+
+.quiz-form .radio {
+  display: block; /* Make each option take a full line */
+  margin-bottom: 0.5em;
+}
+
+.quiz-question p {
+  margin-bottom: 0.5em; /* Reduce space after question paragraph */
+}
+
+.quiz-title {
+  margin-bottom: 1em;
+}

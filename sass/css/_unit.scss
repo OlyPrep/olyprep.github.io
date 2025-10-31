@@ -1,0 +1,54 @@
+.group-grid > .grid {
+  --bulma-grid-gap: 4rem;
+  --bulma-grid-column-count: 2;
+  @media screen and (max-width: 768px) {
+    --bulma-grid-column-count: 1;
+  }
+}
+
+.lesson-link {
+  display: flex;
+  flex-direction: row;
+}
+
+.lesson-info {
+  flex-grow: 1;
+}
+
+.group-cell > a {
+  text-decoration: none;
+  color: var(--bulma-text);
+}
+
+.group-cell > a:hover {
+  text-decoration: none;
+  color: var(--bulma-text-light);
+}
+
+.group-cell > a > div {
+  transition: padding var(--bulma-duration) ease-in-out;
+}
+
+.even-cell > a:hover > div {
+  padding-left: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .odd-cell > a:hover > div {
+    padding-left: 1rem;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .odd-cell {
+    text-align: right;
+  }
+
+  .odd-cell > a:hover > div {
+    padding-right: 1rem;
+  }
+}
+
+.hero > .hero-body > div {
+  width: 100%
+}

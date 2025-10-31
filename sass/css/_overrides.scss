@@ -1,0 +1,26 @@
+:root {
+  /* Theme Colors */
+  --bulma-primary-h: 26;
+  --bulma-primary-s: 81%;
+  --bulma-primary-l: 45%;
+  --bulma-link-text-hover: #e97d28;
+  --bulma-navbar-height: 3.5rem;
+}
+
+.navbar.is-dark {
+  --bulma-navbar-background-color: hsl(221, 14%, 14%);
+  --bulma-navbar-item-color: #fcfcfc;
+  --bulma-navbar-item-hover-background-color: hsl(221, 14%, 21%);
+  --bulma-navbar-item-hover-color: var(--bulma-primary);
+  --bulma-navbar-item-active-color: var(--bulma-primary);
+  --bulma-navbar-divider-background-color: hsl(221, 14%, 29%);
+}
+
+.radio + .radio {
+  margin-inline-start: 0em;
+}
+
+a[disabled] {
+  color: var(--bulma-text-weak);
+  cursor: not-allowed;
+}

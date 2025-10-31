@@ -1,0 +1,26 @@
+// Collapse
+
+.collapse summary {
+  cursor: pointer;
+  outline: none; /* Hide the default focus outline on some browsers */
+  list-style: none; /* Remove default marker */
+}
+
+.collapse summary::-webkit-details-marker {
+  display: none;
+}
+
+.collapse summary::before {
+  content: "\f105";
+  font: var(--fa-font-solid);
+  display: inline-block;
+  margin-right: 0.5em;
+}
+
+.collapse[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.menu .collapse summary {
+  padding: var(--bulma-menu-list-link-padding);
+}

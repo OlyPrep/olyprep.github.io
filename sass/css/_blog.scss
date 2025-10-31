@@ -1,0 +1,23 @@
+blog-card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.blog-card-link .card {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Make cards in a row equal height */
+  border: 1px solid var(--bulma-border);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.blog-card-link .card .card-content {
+  border-color: hsl(221, 14%, 29%);
+}
+
+.blog-card-link:hover .card {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px hsl(var(--bulma-shadow-h), var(--bulma-shadow-s), var(--bulma-shadow-l), 0.15);
+  border-color: var(--bulma-border-hover);
+}

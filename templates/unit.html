@@ -25,11 +25,11 @@
           {% for group, lessons in unit_map %}
           {% set group_odd = loop.index % 2 != 0 %}
           <div class="cell group-cell {% if group_odd %} odd-cell {% else %} even-cell {% endif %}">
-            <h3 class="title mb-3">{{ group }}</h3>
+            <h3 class="title mb-4">{{ group }}</h3>
             {% for lesson_id in lessons %}
             {% set lesson = get_page(path='olympiad/' ~ path[2] ~ '/' ~ path[3] ~ '/' ~ lesson_id ~ '.md') %}
             <a href="{{ lesson.permalink }}">
-              <div class="lesson-link py-2">
+              <div class="lesson-link pt-3 pb-2">
                 <p class="is-size-4 mr-2 {% if group_odd %} is-hidden-tablet {% endif %}"><i class="fa-solid fa-book-open"></i></p>
                 <div class="lesson-info">
                   <p class="is-size-4 lesson-title">{{ lesson.title }}</p>
