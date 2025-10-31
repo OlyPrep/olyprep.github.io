@@ -29,25 +29,25 @@
     {% block head_extra %}{% endblock head_extra %}
   </head>
 
-  <body class="main-content-parent">
+  <body class="{% block body_class %} main-content-parent {% endblock body_class %}">
     {% block header %}
     {{ snippet::navbar() }}
     {% endblock header %}
+    {% block content %}
     <main class="main-content">
-      {% block content %}
       <div class="container is-max-widescreen">
-      {% if page %}
-      {{ page.content | safe }}
-      {% elif section %}
-      {{ section.content | safe }}
-      {% endif %}
+        {% if page %}
+        {{ page.content | safe }}
+        {% elif section %}
+        {{ section.content | safe }}
+        {% endif %}
       </div>
-      {% endblock content %}
     </main>
+    {% endblock content %}
     {% block footer %}
     {{ snippet::footer() }}
     {% endblock footer %}
-    <script src="{{ get_url(path='js/main.js', cachebust=true) }}"></script>
-    <script src="{{ get_url(path='js/quiz.js', cachebust=true) }}"></script>
+    <script src="{{ get_url(path='js/main.js') }}"></script>
+    <script src="{{ get_url(path='js/quiz.js') }}"></script>
   </body>
 </html>

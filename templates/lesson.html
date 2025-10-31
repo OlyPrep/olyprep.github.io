@@ -6,6 +6,9 @@
 {% block header %}
 {% endblock header %}
 
+{% block body_class %}
+{% endblock body_class %}
+
 {% block content %}
 
 {% set path = page.path | split(pat="/") %}
@@ -70,24 +73,26 @@
     <a id="sidebar-close-button" class="button is-hidden-desktop"><i class="fa-solid fa-angles-left"></i></a>
   </div>
   <div class="column main-column main-content-parent">
-    <div class="container breadcrumb-container is-max-desktop">
-      <div class="level breadcrumb-level is-mobile">
-        <div class="level-left">
-          <a id="sidebar-open-button" class="button is-hidden-desktop"><i class="fa-solid fa-angles-right"></i></a>
-          <a class="is-hidden-mobile mx-2 my-2" {% if prev_lesson %} href="{{ get_url(path='olympiad/' ~ path[2] ~ '/' ~ path[3] ~ '/' ~ prev_lesson ~ '/') }}" {% else %} disabled {% endif %}><i class="fa-solid fa-angle-left"></i>Prev</a>
-        </div>
-        <div class="level-item has-text-centered is-hidden-mobile">
-          <nav class="breadcrumb" aria-label="breadcrumbs">
-            <ul>
-              <li><a class="my-2" href="{{ get_url(path='olympiad/' ~ path[2] ~ '/') }}">IOI</a></li>
-              <li><a class="my-2" href="{{ get_url(path='olympiad/' ~ path[2] ~ '/' ~ path[3] ~ '/') }}">Introduction</a></li>
-              <li class="is-active"><a class="my-2" aria-current="page">{{ page.title }}</a></li>
-            </ul>
-          </nav>
-        </div>
-        <div class="level-right">
-          <a class="is-hidden-tablet mx-2 my-2" {% if prev_lesson %} href="{{ get_url(path='olympiad/' ~ path[2] ~ '/' ~ path[3] ~ '/' ~ prev_lesson ~ '/') }}" {% else %} disabled {% endif %}><i class="fa-solid fa-angle-left"></i>Prev</a>
-          <a class="mx-2 my-2" {% if next_lesson %} href="{{ get_url(path='olympiad/' ~ path[2] ~ '/' ~ path[3] ~ '/' ~ next_lesson ~ '/') }}" {% else %} disabled {% endif %}>Next <i class="fa-solid fa-angle-right"></i></a>
+    <div class="breadcrumb-container">
+      <div class="container is-max-desktop">
+        <div class="level breadcrumb-level is-mobile">
+          <div class="level-left">
+            <a id="sidebar-open-button" class="button is-hidden-desktop"><i class="fa-solid fa-angles-right"></i></a>
+            <a class="is-hidden-mobile mx-2 my-2" {% if prev_lesson %} href="{{ get_url(path='olympiad/' ~ path[2] ~ '/' ~ path[3] ~ '/' ~ prev_lesson ~ '/') }}" {% else %} disabled {% endif %}><i class="fa-solid fa-angle-left"></i>Prev</a>
+          </div>
+          <div class="level-item has-text-centered is-hidden-mobile">
+            <nav class="breadcrumb" aria-label="breadcrumbs">
+              <ul>
+                <li><a class="my-2" href="{{ get_url(path='olympiad/' ~ path[2] ~ '/') }}">IOI</a></li>
+                <li><a class="my-2" href="{{ get_url(path='olympiad/' ~ path[2] ~ '/' ~ path[3] ~ '/') }}">Introduction</a></li>
+                <li class="is-active"><a class="my-2" aria-current="page">{{ page.title }}</a></li>
+              </ul>
+            </nav>
+          </div>
+          <div class="level-right">
+            <a class="is-hidden-tablet mx-2 my-2" {% if prev_lesson %} href="{{ get_url(path='olympiad/' ~ path[2] ~ '/' ~ path[3] ~ '/' ~ prev_lesson ~ '/') }}" {% else %} disabled {% endif %}><i class="fa-solid fa-angle-left"></i>Prev</a>
+            <a class="mx-2 my-2" {% if next_lesson %} href="{{ get_url(path='olympiad/' ~ path[2] ~ '/' ~ path[3] ~ '/' ~ next_lesson ~ '/') }}" {% else %} disabled {% endif %}>Next <i class="fa-solid fa-angle-right"></i></a>
+          </div>
         </div>
       </div>
     </div>

@@ -1,8 +1,8 @@
 // Override harmful margins
 
-.main-content > .columns {
+body > .columns {
   margin-inline: 0;
-  margin: 0;
+  margin: 0 !important;
 
   > .column {
     padding: 0;
@@ -27,7 +27,6 @@
     border-right: 1px solid var(--bulma-border);
   }
 }
-
 
 @media screen and (max-width: 1023px) {
   .sidebar-column {
@@ -204,24 +203,32 @@
 
 @media screen and (max-width: 1023px) {
   .sidebar-column.is-active + .sidebar-close {
-    left: 20em;
+    left: 20rem;
   }
 }
 
 // Breadcrumb
 
 .breadcrumb-container {
-  flex-grow: 0;
+  position: fixed;
+  top: 0;
+  left: 20rem;
+  width: calc(100vw - 20rem);
+  z-index: 10;
+
+  @media screen and (max-width: 1024px)
+  {
+    left: 0;
+    width: 100vw;
+  }
 }
 
 .level.breadcrumb-level {
   min-height: var(--bulma-navbar-height);
+  min-width: 100%;
   margin-bottom: 0;
   padding: 0 1.5rem;
-  position: sticky;
-  top: 0;
   background-color: var(--bulma-scheme-main);
-  z-index: 10;
   @media screen and (min-width: 1024px) {
     padding: 0 3rem;
   }
@@ -235,4 +242,8 @@
   .level-left, .level-right {
     flex-direction: row;
   }
+}
+
+.breadcrumb-container ~ .main-content {
+  padding-top: var(--bulma-navbar-height);
 }

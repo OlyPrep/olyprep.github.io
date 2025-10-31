@@ -5,11 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (event) => {
       event.preventDefault(); // Stop page from reloading
 
-      const quizId = form.dataset.quizId;
       const correctAnswerIndex = form.dataset.correctAnswer;
-      const feedbackEl = document.getElementById(`feedback-${quizId}`);
+      const feedbackEl = form.querySelector('.quiz-feedback');
 
-      const selectedOption = form.querySelector(`input[name="${quizId}-answer"]:checked`);
+      const selectedOption = form.querySelector('input[type="radio"]:checked');
 
       if (!selectedOption) {
         feedbackEl.innerHTML = '<p class="has-text-warning has-text-weight-bold">Please select an answer.</p>';

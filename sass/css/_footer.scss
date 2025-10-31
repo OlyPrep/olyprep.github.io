@@ -6,6 +6,10 @@
   min-height: 100vh;
 }
 
+html.has-navbar-fixed-top .main-content-parent {
+  min-height: calc(100vh - var(--bulma-navbar-height));
+}
+
 .main-content {
   flex: 1;
 }
