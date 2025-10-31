@@ -7,25 +7,42 @@
 {% block content %}
 
 {% set path = section.path | split(pat="/") %}
-{% set olymap = load_data(path="content/olympiad/" ~ path[2] ~ "/map.json", format="json") %}
-{% set secmap = olymap[path[3]] %}
-
+{% set olympiad_map = load_data(path="content/olympiad/" ~ path[2] ~ "/map.json", format="json") %}
+{% set unit_map = olympiad_map[path[3]] %}
+<section class="hero is-primary">
+  <div class="hero-body has-text-centered">
+    <h1 class="title is-1 is-spaced">{{ section.title }}</h1>
+    <p class="subtitle">{{ section.description }}</h1>
+  </div>
+</section>
 <section class="section">
   <div class="container">
-    <h1 class="title is-1">{{ section.title }}</h1>
-    <div class="content">
-      <ul>
-        {% for section, topics in secmap %}
-        <li>
-          <p>{{ section }}</p>
-          <ul>
-            {% for topic in topics %}
-            <li><a href="{{ get_url(path='olympiad/' ~ path[2] ~ '/' ~ path[3] ~ '/' ~ topic.id ~ '/') }}">{{ topic.title }}</a></li>
+    <div class="container is-max-widescreen">
+      <div class="fixed-grid group-grid">
+        <div class="grid">
+          {% for group, lessons in unit_map %}
+          {% set group_odd = loop.index % 2 != 0 %}
+          <div class="cell group-cell {% if group_odd %} odd-cell {% else %} even-cell {% endif %}">
+            <h3 class="title mb-3">{{ group }}</h3>
+            {% for lesson_id in lessons %}
+            {% set lesson = get_page(path='olympiad/' ~ path[2] ~ '/' ~ path[3] ~ '/' ~ lesson_id ~ '.md') %}
+            <a href="{{ lesson.permalink }}">
+              <div class="lesson-link py-2">
+                <p class="is-size-4 mr-2 {% if group_odd %} is-hidden-tablet {% endif %}"><i class="fa-solid fa-book-open"></i></p>
+                <div class="lesson-info">
+                  <p class="is-size-4 lesson-title">{{ lesson.title }}</p>
+                  {% if lesson.description %}
+                  <p class="is-size-6">{{ lesson.description }}</p>
+                  {% endif %}
+                </div>
+                {% if group_odd %}<p class="is-size-4 ml-2 is-hidden-mobile"><i class="fa-solid fa-book-open"></i></p>{% endif %}
+              </div>
+            </a>
             {% endfor %}
-          </ul>
-        </li>
-        {% endfor %}
-      </ul>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
     </div>
   </div>
 </section>

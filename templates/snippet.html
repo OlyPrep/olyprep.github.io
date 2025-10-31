@@ -4,7 +4,6 @@
 {% else %}
 {% set is_fixed = "" %}
 {% endif %}
-<!-- TODO use bulma level -->
 <header>
   <div id="navbar-overlay" class="navbar-overlay"></div>
   <nav class="navbar main-navbar {% if compact %} navbar-compact {% endif %} {{ is_fixed }} is-dark" role="navigation" aria-label="main navigation">
@@ -44,10 +43,22 @@
 
 {% macro footer() %}
 <footer class="footer">
-  <div class="content has-text-centered">
-    <p>
-      &copy; 2025 OlyPrep contributors.
-    </p>
+  <div class="has-text-centered">
+    <p class="mb-4">&copy; 2025 OlyPrep contributors.</p>
+    <div class="social-links is-size-4">
+      <a class="mx-1" href="https://facebook.com/OlyPrep" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+        <i class="fab fa-facebook-f fa-lg"></i>
+      <a class="mx-1" href="https://discord.gg/" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+        <i class="fab fa-discord fa-lg"></i>
+      </a>
+      <a class="mx-1" href="https://youtube.com/OlyPrep" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+        <i class="fab fa-youtube fa-lg"></i>
+      <a class="mx-1" href="https://github.com/OlyPrep" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+        <i class="fab fa-github fa-lg"></i>
+      </a>
+      </a>
+      </a>
+    </div>
   </div>
 </footer>
 {% endmacro footer %}

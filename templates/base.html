@@ -29,17 +29,19 @@
     {% block head_extra %}{% endblock head_extra %}
   </head>
 
-  <body>
+  <body class="main-content-parent">
     {% block header %}
     {{ snippet::navbar() }}
     {% endblock header %}
     <main class="main-content">
       {% block content %}
+      <div class="container is-max-widescreen">
       {% if page %}
       {{ page.content | safe }}
       {% elif section %}
       {{ section.content | safe }}
       {% endif %}
+      </div>
       {% endblock content %}
     </main>
     {% block footer %}

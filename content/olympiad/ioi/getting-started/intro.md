@@ -1,7 +1,7 @@
 +++
+title = "Introduction to IOI"
 template = "lesson.html"
-chapter = "ioi/intro"
-topic = "intro"
+description = "What is IOI?"
 +++
 
 This is the introduction to the International Olympiad in Informatics (IOI).

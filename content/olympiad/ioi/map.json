@@ -1,10 +1,6 @@
 {
-  "intro": {
-    "Introduction": [
-      {
-        "title": "Introduction to IOI",
-        "id": "intro"
-      }
-    ]
+  "getting-started": {
+    "Introduction": [ "intro", "hello" ],
+    "Using this Book": [ "using" ]
   }
 }

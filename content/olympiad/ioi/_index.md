@@ -3,4 +3,4 @@ title = "IOI"
 template = "base.html"
 +++
 
-# Go to [Intro](./intro/)
+# Go to [Intro](./getting-started/)
