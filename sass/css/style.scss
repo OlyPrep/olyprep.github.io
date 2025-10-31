@@ -566,3 +566,7 @@ a[disabled] {
 .social-links {
   --bulma-link-text: var(--bulma-link-text-hover)
 }
+
+.hero > .hero-body > div {
+  width: 100%
+}
