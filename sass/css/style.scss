@@ -1,0 +1,508 @@
+/* Bulma Theme Overrides using CSS Variables */
+:root {
+  /* Theme Colors */
+  --bulma-primary: #e97d28;
+  --bulma-link-text-hover: #e97d28;
+  --bulma-navbar-height: 3.5rem;
+}
+
+.radio + .radio {
+  margin-inline-start: 0em;
+}
+
+/* --- navbar --- */
+.navbar.is-dark {
+  --bulma-navbar-background-color: hsl(221, 14%, 14%);
+  --bulma-navbar-item-color: #fcfcfc;
+  --bulma-navbar-item-hover-background-color: hsl(221, 14%, 21%);
+  --bulma-navbar-item-hover-color: var(--bulma-primary);
+  --bulma-navbar-item-active-color: var(--bulma-primary);
+  --bulma-navbar-divider-background-color: hsl(221, 14%, 29%);
+}
+
+#brand-logo {
+  max-height: 2.5rem;
+  margin-right: 5px;
+}
+
+#brand-text {
+  font-size: 1.25rem;
+}
+
+.navbar-item,
+.navbar-link {
+  font-size: 1rem;
+}
+
+/* By default, disable the burger hover effect to prevent sticky hover on mobile */
+.navbar-burger:hover {
+  background-color: transparent;
+}
+
+.navbar .navbar-dropdown {
+  background-color: var(--bulma-navbar-background-color);
+  border-top: 1px solid var(--bulma-navbar-divider-background-color);
+}
+.navbar .navbar-dropdown a.navbar-item {
+  background-color: var(--bulma-navbar-background-color);
+  color: var(--bulma-navbar);
+}
+
+.navbar-dropdown {
+  font-size: 1rem;
+}
+
+.navbar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 19; /* Below navbar-menu (z-index: 20) */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.navbar-overlay.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Custom brand text colors for the dark navbar */
+.navbar.is-dark #brand-text-oly {
+  color: #fcfcfc;
+}
+.navbar.is-dark #brand-text-prep {
+  color: #e97d28;
+}
+
+/* --- HOVER-ONLY STYLES (for Desktop) --- */
+@media (hover: hover) {
+  .navbar.is-dark .navbar-item.has-dropdown:hover > .navbar-dropdown {
+    display: block;
+  }
+  .navbar.is-dark .navbar-dropdown a.navbar-item:hover,
+  .navbar.is-dark a.navbar-item:hover,
+  .navbar.is-dark a.navbar-link:hover {
+    background-color: var(--bulma-navbar-item-hover-background-color);
+    color: var(--bulma-primary) !important;
+  }
+
+  /* Add a hover effect for the burger on desktop only */
+  .navbar.is-dark .navbar-burger:hover {
+    background-color: var(--bulma-navbar-item-hover-background-color);
+  }
+}
+
+/* --- Mobile-specific Display Logic --- */
+@media screen and (max-width: 768px) {
+  // :root {
+  //     /* Increase base font size on mobile for better readability */
+  //     /* XXX: why actually on mobile text is smaller? */
+  //   --bulma-body-font-size: 1.125em;
+  // }
+
+  .navbar-item,
+  .navbar-link {
+    font-size: 1.25rem;
+  }
+
+  #brand-text {
+    font-size: 1.5rem;
+  }
+}
+
+@mixin navbar-force-dropdown-open {
+  /* Force the mobile dropdown to be permanently visible and styled as a list */
+  .navbar-menu.is-active .navbar-item.has-dropdown .navbar-dropdown {
+    display: block;
+  }
+
+  .navbar-menu .navbar-item.has-dropdown .navbar-dropdown {
+    position: static;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  /* Hide the arrow on the "Olympiads" link */
+  .navbar-menu .navbar-item.has-dropdown > .navbar-link::after {
+    display: none;
+  }
+
+  /* Style the submenu items */
+  .navbar-menu .navbar-dropdown .navbar-item {
+    padding-left: 2rem; /* Indent the submenu items */
+  }
+}
+
+@mixin navbar-animate {
+  .navbar-menu {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 100%;
+    background-color: var(--bulma-navbar-background-color);
+    box-shadow: 0 8px 16px rgba(0,0,0,.1);
+    padding: 0;
+  }
+
+  .navbar-menu.is-active {
+    max-height: 100vh;
+    padding: .5rem 0;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  @include navbar-force-dropdown-open;
+  .navbar.main-navbar {
+    @include navbar-animate;
+  }
+}
+
+/* Sticky Footer implementation */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+
+// Lesson navbar
+
+.main-content > .columns {
+  margin-inline: 0;
+  margin: 0;
+
+  > .column {
+    padding: 0;
+  }
+}
+
+.sidebar-column {
+  flex: none;
+  width: calc(20rem + 1px);
+  .navbar-overlay {
+    width: 20rem;
+  }
+  > div {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: calc(20rem + 1px);
+    height: 100vh;
+    padding-top: var(--bulma-navbar-height);
+    border-right: 1px solid var(--bulma-border);
+  }
+}
+
+.navbar.navbar-compact {
+  @include navbar-animate;
+}
+
+.navbar-compact {
+  @include navbar-force-dropdown-open;
+    position: fixed;
+  top: 0;
+  width: 20rem;
+
+  > .container {
+    display: block;
+  }
+
+  .navbar-brand {
+    width: 100%;
+    margin-inline-start: 0 !important;
+  }
+
+  .navbar-burger {
+    display: inline-flex;
+  }
+
+  .navbar-menu {
+    display: none;
+    width: 100%;
+    max-height: calc(100vh - var(--bulma-navbar-height));
+    -webkit-overflow-scrolling: touch;
+    overflow: auto;
+    background-color: var(--bulma-navbar-background-color);
+    box-shadow: 0 .5em 1em hsla(var(--bulma-scheme-h),var(--bulma-scheme-s),var(--bulma-scheme-invert-l),.1);
+    padding: .5rem 0;
+  }
+
+  .navbar-menu.is-active {
+    display: block;
+  }
+
+  .navbar-end,
+  .navbar-end .navbar-item {
+    display: block;
+  }
+
+  .navbar-dropdown {
+    opacity: 1;
+    transform: none;
+  }
+
+  .navbar-dropdown .navbar-item {
+    padding: 0.5rem 1.5rem;
+  }
+}
+
+.sticky-sidebar {
+  max-height: calc(100vh - var(--bulma-navbar-height));
+  overflow-y: auto;
+
+  .menu-list .menu-item,
+  .menu-list a,
+  .menu-list button {
+    width: auto;
+    padding-left: 2.5rem;
+  }
+}
+
+.sidebar-column .menu {
+  --bulma-menu-list-link-padding: 1em 1.5em;
+  --bulma-menu-nested-list-margin: 0 1.5em;
+  --bulma-menu-nested-list-padding-left: 0;
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 997;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.sidebar-overlay.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media screen and (max-width: 1023px) {
+  .sidebar-column {
+    position: fixed;
+    top: 0;
+    left: -20rem; /* Same as width */
+    width: 20rem;
+    height: 100%;
+    z-index: 999;
+    background-color: var(--bulma-scheme-main);
+    transition: left 0.3s ease-in-out;
+    overflow-y: auto;
+  }
+
+  .sidebar-column.is-active {
+    left: 0;
+  }
+
+  .sidebar-column > div {
+    position: static;
+    width: 100%;
+    height: 100%;
+    padding-top: var(--bulma-navbar-height);
+    border-right: none;
+  }
+}
+
+.sidebar-collapse {
+  --bulma-menu-nested-list-margin: 0;
+  border-bottom: 1px solid var(--bulma-border);
+}
+
+.sidebar-collapse summary {
+  display: flex;
+  align-items: center;
+  background-color: hsl(var(--bulma-menu-item-h), var(--bulma-menu-item-s), calc(var(--bulma-menu-item-background-l) + var(--bulma-menu-item-background-l-delta)));
+  transition: background-color var(--bulma-duration) ease-in-out;
+  @media (hover: hover) {
+    &:hover {
+      --bulma-menu-item-background-l-delta: var(--bulma-menu-item-hover-background-l-delta);
+    }
+  }
+}
+
+.collapse.sidebar-collapse summary::before {
+  display: none;
+}
+
+.sidebar-collapse summary::after {
+  content: "\f105";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  margin-left: auto;
+}
+
+.sidebar-collapse[open] > summary::after {
+  transform: rotate(90deg);
+}
+
+#sidebar-open-button {
+  padding: 0.625em;
+}
+
+#sidebar-close-button {
+  padding: 0.625em;
+  background-color: hsl(221, 14%, 14%);
+  transform: rotate(180deg);
+}
+
+.sidebar-close {
+  position: fixed;
+  top: 0;
+  left: calc(-1 * var(--bulma-navbar-height));
+  z-index: 998;
+  min-width: var(--bulma-navbar-height);
+  min-height: var(--bulma-navbar-height);
+  line-height: 0;
+  align-content: center;
+  text-align: center;
+  transition: left 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 1023px) {
+  .sidebar-column.is-active + .sidebar-close {
+    left: 20em;
+  }
+}
+
+.level.breadcrumb-level {
+  min-height: var(--bulma-navbar-height);
+  margin-bottom: 0;
+  padding: 0 1.5rem;
+  position: sticky;
+  top: 0;
+  background-color: var(--bulma-scheme-main);
+  z-index: 10;
+  @media screen and (min-width: 1024px) {
+    padding: 0 3rem;
+  }
+}
+
+.breadcrumb {
+  --bulma-breadcrumb-item-active-color: var(--bulma-text);
+}
+
+.breadcrumb-level {
+  .level-left, .level-right {
+    flex-direction: row;
+  }
+}
+
+/* --- Blog Card --- */
+.blog-card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.blog-card-link .card {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Make cards in a row equal height */
+  border: 1px solid var(--bulma-border);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.blog-card-link .card .card-content {
+  border-color: hsl(221, 14%, 29%);
+}
+
+.blog-card-link:hover .card {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px hsl(var(--bulma-shadow-h), var(--bulma-shadow-s), var(--bulma-shadow-l), 0.15);
+  border-color: var(--bulma-border-hover);
+}
+
+/* --- Quiz Shortcode --- */
+.quiz-container {
+  border: 1px solid var(--bulma-border);
+  border-radius: 6px;
+  padding: 1.5em;
+  margin: 1.5em 0;
+  background-color: var(--bulma-scheme-main-ter);
+}
+
+.quiz-form .radio {
+  display: block; /* Make each option take a full line */
+  margin-bottom: 0.5em;
+}
+
+.quiz-question p {
+  margin-bottom: 0.5em; /* Reduce space after question paragraph */
+}
+
+.quiz-title {
+  margin-bottom: 1em;
+}
+
+/* --- Collapse --- */
+.collapse summary {
+  cursor: pointer;
+  outline: none; /* Hide the default focus outline on some browsers */
+  list-style: none; /* Remove default marker */
+}
+
+.collapse summary::-webkit-details-marker {
+  display: none;
+}
+
+.collapse summary::before {
+  content: "\f105";
+  font: var(--fa-font-solid);
+  display: inline-block;
+  margin-right: 0.5em;
+}
+
+.collapse[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.menu .collapse summary {
+    padding: var(--bulma-menu-list-link-padding);
+}
+
+/* --- Spoiler Shortcode --- */
+.spoiler {
+  border: 1px solid var(--bulma-border);
+  border-radius: 6px;
+  margin: 1.5em 0;
+  background-color: var(--bulma-scheme-main-ter);
+}
+
+.spoiler summary {
+  padding: 0.75em 1.25em;
+  font-weight: 600;
+}
+
+.spoiler summary::before {
+  color: var(--bulma-primary);
+}
+
+.spoiler .collapse-content {
+  padding: 0.25em 1.25em 1.25em;
+  border-top: 1px solid var(--bulma-border);
+}
+
+// random
+
+a[disabled] {
+  color: var(--bulma-text-weak);
+  cursor: not-allowed;
+}

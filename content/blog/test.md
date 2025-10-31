@@ -26,3 +26,7 @@ a spoiler
 {% quiz(options=["This is a option", "This is the option", "This is another option"], correct=1) %}
 _This is a question_
 {% end %}
+
+{% quiz(options=["This is a option", "This is the option", "This is another option"], correct=1) %}
+This is a **_question_**
+{% end %}

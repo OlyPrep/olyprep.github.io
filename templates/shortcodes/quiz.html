@@ -1,17 +1,17 @@
-{% set quiz_id = "quiz-1" %}
+{% set quiz_id = get_random (start=1000000, end=9999999) %}
 <div class="quiz-container content">
-  <p class="quiz-title is-size-5 has-text-weight-bold">💡 Quiz!</p>
+  <p class="quiz-title has-text-weight-bold">💡 Quiz!</p>
   <div class="quiz-question has-text-weight-bold">{{ body | markdown | safe }}</div>
-  <form class="quiz-form" data-quiz-id="{{ quiz_id }}" data-correct-answer="{{ correct }}">
+  <form class="quiz-form" data-quiz-id="quiz-{{ quiz_id }}" data-correct-answer="{{ correct }}">
     <div class="control mt-3">
       {% for option in options %}
         <label class="radio">
-          <input type="radio" name="{{ quiz_id }}-answer" value="{{ loop.index0 }}">
+          <input type="radio" name="quiz-{{ quiz_id }}-answer" value="{{ loop.index0 }}">
           {{ option }}
         </label>
       {% endfor %}
     </div>
-    <div id="feedback-{{ quiz_id }}" class="quiz-feedback mt-3"></div>
+    <div id="feedback-quiz-{{ quiz_id }}" class="quiz-feedback mt-3"></div>
     <div class="field mt-4">
       <div class="control">
         <button type="submit" class="button is-primary is-small">Check Answer</button>

@@ -1,0 +1,53 @@
+{% macro navbar(fixed="top", compact=false) %}
+{% if fixed %}
+{% set is_fixed = "is-fixed-" ~ fixed %}
+{% else %}
+{% set is_fixed = "" %}
+{% endif %}
+<!-- TODO use bulma level -->
+<header>
+  <div id="navbar-overlay" class="navbar-overlay"></div>
+  <nav class="navbar main-navbar {% if compact %} navbar-compact {% endif %} {{ is_fixed }} is-dark" role="navigation" aria-label="main navigation">
+    <div class="container is-max-widescreen">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <img id="brand-logo" src="/assets/logo.svg" alt="OlyPrep Logo">
+          <span class="has-text-weight-bold">
+            <span id="brand-text"><span id="brand-text-oly">Oly</span><span id="brand-text-prep">Prep</span></span>
+          </span>
+        </a>
+        <a role="button" class="navbar-burger {% if not compact %} is-hidden-desktop {% endif %}" aria-label="menu" aria-expanded="false" data-target="main-nav">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      <div id="main-nav" class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item" href="/">Home</a>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link" href="/olympiad">Olympiads</a>
+            <div class="navbar-dropdown is-boxed">
+              <a class="navbar-item" href="/olympiad/ioi">IOI</a>
+              <a class="navbar-item" href="/olympiad/ijso">IJSO</a>
+            </div>
+          </div>
+          <a class="navbar-item" href="/blog">Blog</a>
+          <a class="navbar-item" href="/about">About</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+{% endmacro navbar %}
+
+{% macro footer() %}
+<footer class="footer">
+  <div class="content has-text-centered">
+    <p>
+      &copy; 2025 OlyPrep contributors.
+    </p>
+  </div>
+</footer>
+{% endmacro footer %}

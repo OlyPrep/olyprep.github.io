@@ -1,0 +1,109 @@
+{% import "snippet.html" as snippet %}
+{% extends "base.html" %}
+
+{% block html_class %}{% endblock html_class %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+
+{% set path = page.path | split(pat="/") %}
+{% set olymap = load_data(path="content/olympiad/" ~ path[2] ~ "/map.json", format="json") %}
+{% set secmap = olymap[path[3]] %}
+
+{% set pagearr = [] %}
+{% for key, value in secmap %}
+  {% for page in value %}
+    {% set_global pagearr = pagearr | concat(with=page.id) %}
+  {% endfor %}
+{% endfor %}
+
+{% set page_index = -1 %}
+{% for pid in pagearr %}
+  {% if pid == path[4] %}
+    {% set_global page_index = -1 - page_index %}
+  {% elif page_index < 0 %}
+    {% set_global page_index = page_index - 1 %}
+  {% endif %}
+{% endfor %}
+
+{% if page_index > 0 %}
+  {% set index = page_index - 1 %}
+  {% set_global prev_page = pagearr[index] %}
+{% endif %}
+
+{% if page_index != -1 and page_index < pagearr | length - 1 %}
+  {% set index = page_index + 1 %}
+  {% set_global next_page = pagearr[index] %}
+{% endif %}
+
+<div id="sidebar-overlay" class="sidebar-overlay"></div>
+<div class="columns">
+  <div id="sidebar" class="column sidebar-column">
+    <div>
+      {{ snippet::navbar(fixed=false, compact=true) }}
+      <aside class="menu sticky-sidebar">
+        <ul class="menu-list">
+          {% for section, topics in secmap %}
+          <li>
+            <details class="collapse sidebar-collapse" open="">
+              <summary>{{ section }}</summary>
+              <ul>
+                {% for topic in topics %}
+                <li><a href="{{ get_url(path='olympiad/' ~ path[2] ~ '/' ~ path[3] ~ '/' ~ topic.id ~ '/') }}">{{ topic.title }}</a></li>
+                {% endfor %}
+              </ul>
+            </details>
+          </li>
+          {% endfor %}
+        </ul>
+      </aside>
+    </div>
+  </div>
+  <div class="sidebar-close">
+    <a id="sidebar-close-button" class="button is-hidden-desktop"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+  </div>
+  <div class="column main-column">
+    <div class="container is-max-desktop">
+      <div class="level breadcrumb-level is-mobile">
+        <div class="level-left">
+          <a id="sidebar-open-button" class="button is-hidden-desktop"><i class="fas fa-arrow-right-from-bracket"></i></a>
+          <a class="is-hidden-mobile mx-2 my-2" {% if prev_page %} href="{{ get_url(path='olympiad/' ~ path[2] ~ '/' ~ path[3] ~ '/' ~ prev_page ~ '/') }}" {% else %} disabled {% endif %}><i class="fa-solid fa-angle-left"></i>Prev</a>
+        </div>
+        <div class="level-item has-text-centered is-hidden-mobile">
+          <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ul>
+              <li><a class="my-2" href="{{ get_url(path='olympiad/ioi') }}">IOI</a></li>
+              <li><a class="my-2" href="{{ get_url(path='olympiad/ioi/intro') }}">Introduction</a></li>
+              <li class="is-active"><a class="my-2" href="#" aria-current="page">Introduction to IOI</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="level-right">
+          <a class="is-hidden-tablet mx-2 my-2" {% if prev_page %} href="{{ get_url(path='olympiad/' ~ path[2] ~ '/' ~ path[3] ~ '/' ~ prev_page ~ '/') }}" {% else %} disabled {% endif %}><i class="fa-solid fa-angle-left"></i>Prev</a>
+          <a class="mx-2 my-2" {% if next_page %} href="{{ get_url(path='olympiad/' ~ path[2] ~ '/' ~ path[3] ~ '/' ~ next_page ~ '/') }}" {% else %} disabled {% endif %}>Next <i class="fa-solid fa-angle-right"></i></a>
+        </div>
+      </div>
+      <section class="section">
+        <h1 class="title is-1">
+          {% for section, topics in secmap %}
+          {% for topic in topics %}
+          {% if topic.id == path[4] %}
+          {{ topic.title }}
+          {% endif %}
+          {% endfor %}
+          {% endfor %}
+        </h1>
+        <div class="content">
+          {{ page.content | safe }}
+        </div>
+      </section>
+    </div>
+    {{ snippet::footer() }}
+  </div>
+</div>
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}

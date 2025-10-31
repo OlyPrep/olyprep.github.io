@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const navbarOverlay = document.getElementById('navbar-overlay');
 
   // Get all "navbar-burger" elements
   const $navbarBurgers = Array.from(document.querySelectorAll('.navbar-burger'));
@@ -13,23 +14,51 @@ document.addEventListener('DOMContentLoaded', () => {
       // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
       el.classList.toggle('is-active');
       $target.classList.toggle('is-active');
+      if (navbarOverlay) {
+        navbarOverlay.classList.toggle('is-active');
+      }
     });
   });
 
   // Add a click event on the document to close the menu when clicking outside
   document.addEventListener('click', (event) => {
-    const activeBurger = document.querySelector('.navbar-burger.is-active');
-    if (!activeBurger) {
-      return;
-    }
+    const activeBurgers = document.querySelectorAll('.navbar-burger.is-active');
+    activeBurgers.forEach(activeBurger => {
+      const targetMenu = document.getElementById(activeBurger.dataset.target);
 
-    const targetMenu = document.getElementById(activeBurger.dataset.target);
-
-    // Check if the click is outside the active menu and its burger
-    if (!targetMenu.contains(event.target) && !activeBurger.contains(event.target)) {
-      activeBurger.classList.remove('is-active');
-      targetMenu.classList.remove('is-active');
-    }
+      // Check if the click is outside the active menu and its burger
+      if (targetMenu && !targetMenu.contains(event.target) && !activeBurger.contains(event.target)) {
+        activeBurger.classList.remove('is-active');
+        targetMenu.classList.remove('is-active');
+        if (navbarOverlay) {
+          navbarOverlay.classList.remove('is-active');
+        }
+      }
+    });
   });
 
+  // Floating sidebar
+  const sidebar = document.getElementById('sidebar');
+  const sidebarOpenButton = document.getElementById('sidebar-open-button');
+  const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+  if (sidebar && sidebarOpenButton && sidebarOverlay) {
+    sidebarOpenButton.addEventListener('click', () => {
+      sidebar.classList.add('is-active');
+      sidebarOverlay.classList.add('is-active');
+    });
+
+    sidebarOverlay.addEventListener('click', () => {
+      sidebar.classList.remove('is-active');
+      sidebarOverlay.classList.remove('is-active');
+    });
+
+    const sidebarCloseButton = document.getElementById('sidebar-close-button');
+    if (sidebarCloseButton) {
+      sidebarCloseButton.addEventListener('click', () => {
+        sidebar.classList.remove('is-active');
+        sidebarOverlay.classList.remove('is-active');
+      });
+    }
+  };
 });
