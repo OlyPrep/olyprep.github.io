@@ -57,6 +57,10 @@
   }
 }
 
+.odd-cell .lesson-link .lesson-icon {
+  margin-right: 0.5rem;
+}
+
 .even-cell .lesson-link .lesson-icon {
   margin-right: 0.5rem;
 }
@@ -67,6 +71,7 @@
     .lesson-link {
       flex-direction: row-reverse;
       .lesson-icon {
+        margin-right: 0;
         margin-left: 0.5rem;
       }
     }
