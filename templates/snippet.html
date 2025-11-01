@@ -26,10 +26,10 @@
         <div class="navbar-end">
           <a class="navbar-item" href="/">Home</a>
           <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link" href="/olympiad">Olympiads</a>
+            <a class="navbar-link">Tracks</a>
             <div class="navbar-dropdown is-boxed">
-              <a class="navbar-item" href="/olympiad/ioi">IOI</a>
-              <a class="navbar-item" href="/olympiad/ijso">IJSO</a>
+              <a class="navbar-item" href="/ioi/">IOI</a>
+              <a class="navbar-item" href="/ijso/">IJSO</a>
             </div>
           </div>
           <a class="navbar-item" href="/blog">Blog</a>
@@ -63,9 +63,9 @@
 </footer>
 {% endmacro footer %}
 
-{% macro unit_lessons(oly, unit) %}
-{% set olympiad_map = load_data(path="content/olympiad/" ~ oly ~ "/map.json", format="json") %}
-{% set unit_map = olympiad_map[unit] %}
+{% macro unit_lessons(track, unit) %}
+{% set track_map = load_data(path="content/" ~ track ~ "/map.json", format="json") %}
+{% set unit_map = track_map.toc[unit] %}
 <div class="fixed-grid group-grid">
   <div class="grid">
     {% for group, lessons in unit_map %}
@@ -73,7 +73,7 @@
     <div class="cell group-cell {% if group_odd %} odd-cell {% else %} even-cell {% endif %}">
       <h3 class="title mb-4">{{ group }}</h3>
       {% for lesson_id in lessons %}
-      {% set lesson = get_page(path='olympiad/' ~ oly ~ '/' ~ unit ~ '/' ~ lesson_id ~ '.md') %}
+      {% set lesson = get_page(path=track ~ '/' ~ unit ~ '/' ~ lesson_id ~ '.md') %}
       <a href="{{ lesson.permalink }}">
         <div class="lesson-link pt-3 pb-2">
           <p class="is-size-4 lesson-icon"><i class="fa-solid fa-book-open"></i></p>

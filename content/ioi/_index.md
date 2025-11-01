@@ -1,5 +1,5 @@
 +++
 title = "International Olympiad in Informatics"
-template = "olympiad.html"
+template = "track.html"
 description = "OI > MO"
 +++

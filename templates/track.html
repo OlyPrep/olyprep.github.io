@@ -7,7 +7,7 @@
 
 {% block content %}
 {% set path = section.path | split(pat="/") %}
-{% set olympiad_map = load_data(path="content/olympiad/" ~ path[2] ~ "/map.json", format="json") %}
+{% set track_map = load_data(path="content/" ~ path[1] ~ "/map.json", format="json") %}
 <main class="main-content">
   <section class="hero is-primary is-halfheight">
     <div class="hero-body">
@@ -17,10 +17,10 @@
       </div>
     </div>
   </section>
-  <section class="section olympiad-toc-section">
-    <div class="container olympiad-toc is-fullhd">
-      {% for uid, map in olympiad_map %}
-      {% set unit = get_section(path='olympiad/' ~ path[2] ~ '/' ~ uid ~ '/_index.md') %}
+  <section class="section track-toc-section">
+    <div class="container track-toc is-fullhd">
+      {% for uid, map in track_map.toc %}
+      {% set unit = get_section(path=path[1] ~ '/' ~ uid ~ '/_index.md') %}
       <div class="unit-name-sticky">
         <h2 class="title is-2">{{ unit.title }}</h2>
         <p class="is-size-6 mb-5 is-hidden-mobile">{{ unit.description }}</p>
@@ -29,7 +29,7 @@
         </a>
       </div>
       <p class="is-size-6 mt-2 mb-6 is-hidden-tablet">{{ unit.description }}</p>
-      {{ snippet::unit_lessons(oly=path[2], unit=uid) }}
+      {{ snippet::unit_lessons(track=path[1], unit=uid) }}
     </div>
     {% endfor %}
 </div>

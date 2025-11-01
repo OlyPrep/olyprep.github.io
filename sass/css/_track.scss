@@ -1,4 +1,4 @@
-.olympiad-toc {
+.track-toc {
   > .group-grid > .grid {
     --bulma-grid-gap: 2.5rem;
     --bulma-grid-column-count: 1;
@@ -44,13 +44,13 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .olympiad-toc .group-grid {
+  .track-toc .group-grid {
     padding-top: 2rem;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .olympiad-toc-section {
+  .track-toc-section {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
   }
@@ -71,13 +71,13 @@
     }
   }
 
-  .olympiad-toc .group-grid {
+  .track-toc .group-grid {
     padding-bottom: 1.5rem;
   }
 }
 
 @media screen and (min-width: 769px) and (max-width: 1023px) {
-  .olympiad-toc {
+  .track-toc {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -89,7 +89,7 @@
     text-align: right;
   }
 
-  .olympiad-toc .group-grid {
+  .track-toc .group-grid {
     width: 50%;
     padding-left: 2em;
   }
