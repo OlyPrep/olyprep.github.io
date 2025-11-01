@@ -22,11 +22,13 @@
       {% for uid, map in track_map.toc %}
       {% set unit = get_section(path=path[1] ~ '/' ~ uid ~ '/_index.md') %}
       <div class="unit-name-sticky">
-        <h2 class="title is-2">{{ unit.title }}</h2>
-        <p class="is-size-6 mb-5 is-hidden-mobile">{{ unit.description }}</p>
-        <a class="button" href="{{ unit.permalink }}">
-          More<span class="ml-1"><i class="fa-solid fa-arrow-right"></i></span>
-        </a>
+        <div>
+          <h2 class="title is-2">{{ unit.title }}</h2>
+          <p class="is-size-6 mb-5 is-hidden-mobile">{{ unit.description }}</p>
+          <a class="button" href="{{ unit.permalink }}">
+            More<span class="ml-1"><i class="fa-solid fa-arrow-right"></i></span>
+          </a>
+        </div>
       </div>
       <p class="is-size-6 mt-2 mb-6 is-hidden-tablet">{{ unit.description }}</p>
       {{ snippet::unit_lessons(track=path[1], unit=uid) }}
