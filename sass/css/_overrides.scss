@@ -2,18 +2,16 @@
   /* Theme Colors */
   --bulma-primary-h: 26;
   --bulma-primary-s: 81%;
-  --bulma-primary-l: 45%;
+  --bulma-primary-l: 50%;
   --bulma-link-text-hover: #e97d28;
   --bulma-navbar-height: 3.5rem;
 }
 
 .navbar.is-dark {
-  --bulma-navbar-background-color: hsl(221, 14%, 14%);
-  --bulma-navbar-item-color: #fcfcfc;
-  --bulma-navbar-item-hover-background-color: hsl(221, 14%, 21%);
+  --bulma-navbar-background-color: var(--bulma-background);
+  --bulma-navbar-item-hover-background-color: var(--bulma-background-hover);
   --bulma-navbar-item-hover-color: var(--bulma-primary);
   --bulma-navbar-item-active-color: var(--bulma-primary);
-  --bulma-navbar-divider-background-color: hsl(221, 14%, 29%);
 }
 
 .radio + .radio {
@@ -23,4 +21,34 @@
 a[disabled] {
   color: var(--bulma-text-weak);
   cursor: not-allowed;
+}
+
+.navbar-dropdown a.navbar-item {
+  padding-inline-end: 2rem;
+}
+
+.navbar-link:not(.is-arrowless) {
+  padding-inline-end: 2em;
+}
+
+.navbar-link:not(.is-arrowless)::after {
+  inset-inline-end: 0.875em;
+}
+
+.navbar-link:not(.is-arrowless)::after,
+.select:not(.is-multiple):not(.is-loading)::after {
+  content: "\f107";
+  font: var(--fa-font-solid);
+  display: block;
+  height: 0.625em;
+  margin-top: -0.5em;
+  border: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  transform: rotate(0);
+  transform-origin: center;
+  transition-duration: var(--bulma-duration);
+  transition-property: border-color;
+  width: 0.625em;
 }
