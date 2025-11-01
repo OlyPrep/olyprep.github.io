@@ -3,7 +3,7 @@
     --bulma-grid-gap: 2.5rem;
     --bulma-grid-column-count: 1;
     @media screen and (min-width: 1024px) {
-      --bulma-grid-gap: 26em;
+      --bulma-grid-gap: calc((100% - 8em) / 3 + 8em);
       --bulma-grid-column-count: 2;
     }
   }
@@ -36,7 +36,7 @@
 .unit-name-sticky {
   position: sticky;
   top: calc(var(--bulma-navbar-height) + 1.5rem);
-  width: 19rem;
+  width: calc((100% - 8em) / 3);
   padding-bottom: 0.5rem;
   margin-inline-start: auto;
   margin-inline-end: auto;
