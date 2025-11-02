@@ -71,8 +71,8 @@
 .home-track-card {
   min-height: 12.5em;
   background-color: var(--bulma-scheme-main-ter);
-  transition: background-color var(--bulma-duration) ease-in-out,
-              transform var(--bulma-duration) ease-in-out;
+  transition: background-color var(--bulma-duration) ease-in-out, transform var(--bulma-duration) ease-in-out;
+  box-shadow: unset;
 }
 
 @media (hover: hover) {
