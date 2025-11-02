@@ -9,7 +9,7 @@
 {% set path = section.path | split(pat="/") %}
 {% set track_map = load_data(path="content/" ~ path[1] ~ "/map.json", format="json") %}
 <main class="main-content">
-  <section class="hero track-hero is-primary is-medium">
+  <section class="hero track-hero is-primary">
     <div class="hero-body">
       <div class="centered-on-tablet">
         <h1 class="title is-1 is-spaced">{{ section.title }} Track</h1>

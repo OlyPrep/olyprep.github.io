@@ -42,9 +42,9 @@ OlyPrep - Olympiad Resources, Unified
                   {% set svg = load_data(path=track_id ~ "/logo.svg", format="plain") %}
                   {{ svg | safe }}
                   <div class="home-track-info">
-                    <h3 class="title is-3 is-spaced">{{ track.extra.clickbait_title }}</h3>
-                    <p class="subtitle is-5">{{ track.extra.clickbait_details }}</p>
-                    <p class="subtitle is-5 home-track-go">Start learning<span class="ml-2"><i class="fa-solid fa-arrow-right"></i></span></p>
+                    <h3 class="title home-track-title">{{ track.extra.clickbait_title }}</h3>
+                    <p class="home-track-subtitle">{{ track.extra.clickbait_details }}</p>
+                    <div class="home-track-go"><p>Start learning<span class="ml-2"><i class="fa-solid fa-arrow-right"></i></span></p></div>
                   </div>
                 </div>
               </div>

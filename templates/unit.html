@@ -10,14 +10,15 @@
 {% block content %}
 {% set path = section.path | split(pat="/") %}
 <main class="main-content">
-  <section class="hero is-primary is-small">
+  <section class="hero unit-hero is-primary is-small">
     <div class="hero-body">
       <div class="centered-on-tablet pt-4 pb-5">
-        <a class="button has-text-black has-background-primary mb-4" href="{{ get_url(path=path[1] ~ '/') }}">
+        <a class="button has-text-black has-background-primary" href="{{ get_url(path=path[1] ~ '/') }}">
           <span class="mr-1"><i class="fa-solid fa-arrow-left"></i></span>
-          Back to track home
+          {% set track = get_section(path=path[1] ~ "/_index.md") %}
+          Back to {{ track.title }} home
         </a>
-        <h1 class="title is-1 is-spaced pt-2">{{ section.title }}</h1>
+        <h1 class="title is-1">{{ section.title }}</h1>
         <p class="subtitle">{{ section.description }}</p>
       </div>
     </div>

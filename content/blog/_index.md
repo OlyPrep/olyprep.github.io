@@ -1,4 +1,4 @@
 +++
-title = "Blog"
+title = "OlyPrep Blog"
 template = "blog-index.html"
 +++
