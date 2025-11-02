@@ -64,9 +64,9 @@
     transition: padding var(--bulma-duration) ease-in-out, background-color var(--bulma-duration) ease-in-out;
   }
   .button:hover {
-    padding-right: calc(var(--bulma-button-padding-horizontal) - var(--bulma-button-border-width) - 0.375em);
+    padding-right: calc(var(--bulma-button-padding-horizontal) - var(--bulma-button-border-width) - 0.3125em);
     span {
-      padding-left: 0.375em;
+      padding-left: 0.3125em;
     }
   }
 }

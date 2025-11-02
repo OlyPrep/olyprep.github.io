@@ -1,21 +1,46 @@
 {% import "snippet.html" as snippet %}
 {% extends "base.html" %}
 
+{% macro toc(unit) %}
+<div class="fixed-grid group-grid">
+  <div class="grid">
+    {% for group, lessons in unit.extra.groups %}
+    {% set group_odd = loop.index % 2 != 0 %}
+    <div class="cell group-cell {% if group_odd %} odd-cell {% else %} even-cell {% endif %}">
+      <h3 class="title mb-4">{{ group }}</h3>
+      {% for lesson_id in lessons %}
+      {% set lesson = get_page(path=unit.components | concat(with=lesson_id ~ ".md") | join(sep="/")) %}
+      <a href="{{ lesson.permalink }}">
+        <div class="lesson-link pt-3 pb-2">
+          <p class="is-size-4 lesson-icon"><i class="fa-solid fa-book-open"></i></p>
+          <div class="lesson-info">
+            <p class="is-size-4 lesson-title">{{ lesson.title }}</p>
+            {% if lesson.description %}
+            <p class="is-size-6">{{ lesson.description }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endmacro toc %}
+
 {% block title %}
-{% set path = section.path | split(pat="/") %}
-{% set track = get_section(path=path[1] ~ "/_index.md") %}
+{% set track = get_section(path=section.components | slice(start=0, end=1) | concat(with="_index.md") | join(sep="/")) %}
 {{ section.title }} - {{ track.title }}
 {% endblock title %}
 
 {% block content %}
-{% set path = section.path | split(pat="/") %}
+{% set track = get_section(path=section.components | slice(start=0, end=1) | concat(with="_index.md") | join(sep="/")) %}
 <main class="main-content">
   <section class="hero unit-hero is-primary is-small">
     <div class="hero-body">
       <div class="centered-on-tablet pt-4 pb-5">
-        <a class="button has-text-black has-background-primary" href="{{ get_url(path=path[1] ~ '/') }}">
+        <a class="button has-text-black has-background-primary" href="{{ track.permalink }}">
           <span class="mr-1"><i class="fa-solid fa-arrow-left"></i></span>
-          {% set track = get_section(path=path[1] ~ "/_index.md") %}
           Back to {{ track.title }} home
         </a>
         <h1 class="title is-1">{{ section.title }}</h1>
@@ -26,7 +51,7 @@
   <section class="section">
     <div class="container">
       <div class="container is-max-widescreen">
-        {{ snippet::unit_lessons(track=path[1], unit=path[2]) }}
+        {{ self::toc(unit=section) }}
       </div>
     </div>
   </section>

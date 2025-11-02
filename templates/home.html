@@ -39,7 +39,7 @@ OlyPrep - Olympiad Resources, Unified
             <a href="ioi/">
               <div class="card home-track-card">
                 <div class="card-content">
-                  {% set svg = load_data(path=track_id ~ "/logo.svg", format="plain") %}
+                  {% set svg = load_data(path="templates/svg/" ~ track_id ~ ".html", format="plain") %}
                   {{ svg | safe }}
                   <div class="home-track-info">
                     <h3 class="title home-track-title">{{ track.extra.clickbait_title }}</h3>

@@ -1,9 +1,0 @@
-{
-  "name": "IOI",
-  "toc": {
-    "getting-started": {
-      "Introduction": [ "intro", "hello" ],
-      "Using this Book": [ "using" ]
-    }
-  }
-}

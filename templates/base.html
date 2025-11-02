@@ -1,4 +1,63 @@
-{% import "snippet.html" as snippet %}
+{% macro navbar(fixed="top", compact=false) %}
+{% if fixed %}
+{% set is_fixed = "is-fixed-" ~ fixed %}
+{% else %}
+{% set is_fixed = "" %}
+{% endif %}
+<header>
+  <div id="navbar-overlay" class="navbar-overlay"></div>
+  <nav class="navbar main-navbar {% if compact %} navbar-compact {% endif %} {{ is_fixed }} is-dark" role="navigation" aria-label="main navigation">
+    <div class="container is-max-widescreen">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <img id="brand-logo" src="/assets/logo.svg" alt="OlyPrep Logo">
+          <span class="has-text-weight-bold">
+            <span id="brand-text"><span id="brand-text-oly">Oly</span><span id="brand-text-prep">Prep</span></span>
+          </span>
+        </a>
+        <a role="button" class="navbar-burger {% if not compact %} is-hidden-desktop {% endif %}" aria-label="menu" aria-expanded="false" data-target="main-nav">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      <div id="main-nav" class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item" href="/">Home</a>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a href="/#tracks" class="navbar-link">Tracks</a>
+            <div class="navbar-dropdown is-boxed">
+              {% for track_id in config.extra.tracks %}
+              {% set track = get_section(path=track_id ~ "/_index.md") %}
+              <a class="navbar-item" href="/{{ track_id }}/">{{ track.title }}</a>
+              {% endfor %}
+            </div>
+          </div>
+          <a class="navbar-item" href="/blog">Blog</a>
+          <a class="navbar-item" href="/about">About</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+{% endmacro navbar %}
+
+{% macro footer() %}
+<footer class="footer">
+  <div class="has-text-centered">
+    <p class="mb-4">&copy; 2025 OlyPrep contributors.</p>
+    <div class="social-links is-size-4">
+      <a class="mx-1" href="https://facebook.com/OlyPrep" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f fa-lg"></i></a>
+      <a class="mx-1" href="https://discord.gg/" target="_blank" rel="noopener noreferrer" aria-label="Discord"><i class="fab fa-discord fa-lg"></i></a>
+      <a class="mx-1" href="https://youtube.com/@OlyPrep" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube fa-lg"></i></a>
+      <a class="mx-1" href="https://github.com/OlyPrep" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github fa-lg"></i></a>
+    </div>
+  </div>
+</footer>
+{% endmacro footer %}
+
+{% block html %}
 <!DOCTYPE html>
 <html lang="en" class="{% block html_class %}has-navbar-fixed-top{% endblock html_class %}" data-theme="dark">
   <head>
@@ -33,7 +92,7 @@
 
   <body class="{% block body_class %} main-content-parent {% endblock body_class %}">
     {% block header %}
-    {{ snippet::navbar() }}
+    {{ self::navbar() }}
     {% endblock header %}
     {% block content %}
     <main class="main-content">
@@ -47,9 +106,10 @@
     </main>
     {% endblock content %}
     {% block footer %}
-    {{ snippet::footer() }}
+    {{ self::footer() }}
     {% endblock footer %}
     <script src="{{ get_url(path='js/main.js') }}"></script>
     <script src="{{ get_url(path='js/quiz.js') }}"></script>
   </body>
 </html>
+{% endblock html %}

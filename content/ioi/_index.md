@@ -5,4 +5,5 @@ description = "Learn programming, algorithms, data structures and problem-solvin
 [extra]
 clickbait_title = "Programming"
 clickbait_details = "From problem-solving basics to advanced, learn to solve programming problems with data structures, and pure coding skills."
+units = [ "getting-started" ]
 +++

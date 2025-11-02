@@ -1,4 +1,4 @@
-{% import "snippet.html" as snippet %}
+{% import "base.html" as base %}
 {% extends "base.html" %}
 
 {% block html_class %}{% endblock html_class %}
@@ -11,94 +11,92 @@
 
 {% block content %}
 
-{% set path = page.path | split(pat="/") %}
-{% set track_map = load_data(path=path[1] ~ "/map.json", format="json") %}
-{% set unit_map = track_map.toc[path[2]] %}
+{% set track = get_section(path=page.components | slice(start=0, end=1) | concat(with="_index.md") | join(sep="/")) %}
+{% set unit = get_section(path=page.components | slice(start=0, end=2) | concat(with="_index.md") | join(sep="/")) %}
 
 {% set unit_list = [] %}
-{% for unit, groups in track_map.toc %}
-  {% set_global unit_list = unit_list | concat(with=unit) %}
+{% for unit_id in track.extra.units %}
+  {% set_global unit_list = unit_list | concat(with=unit_id) %}
 {% endfor %}
 
-{% for unit in unit_list %}
-  {% if unit == path[2] %}
+{% for unit_id in unit_list %}
+  {% if unit_id == page.components[1] %}
     {% set_global unit_index = loop.index0 %}
   {% endif %}
 {% endfor %}
 
 {% if unit_index > 0 %}
   {% set index = unit_index - 1 %}
-  {% set_global prev_unit = unit_list[index] %}
+  {% set_global prev_unit = get_section(path=page.components | slice(start=0, end=1) | concat(with=unit_list[index] ~ "/_index.md") | join(sep="/")) %}
 {% endif %}
 
 {% if unit_index < unit_list | length - 1 %}
   {% set index = unit_index + 1 %}
-  {% set_global next_unit = unit_list[index] %}
+  {% set_global next_unit = get_section(path=page.components | slice(start=0, end=1) | concat(with=unit_list[index] ~ "/_index.md") | join(sep="/")) %}
 {% endif %}
 
 {% set lesson_list = [] %}
-{% for group_name, lessons in unit_map %}
+{% for group, lessons in unit.extra.groups %}
   {% for lesson in lessons %}
     {% set_global lesson_list = lesson_list | concat(with=lesson) %}
   {% endfor %}
 {% endfor %}
 
 {% for lesson in lesson_list %}
-  {% if lesson == path[3] %}
+  {% if lesson == page.components[2] %}
     {% set_global lesson_index = loop.index0 %}
   {% endif %}
 {% endfor %}
 
 {% if lesson_index > 0 %}
   {% set index = lesson_index - 1 %}
-  {% set_global prev_lesson = lesson_list[index] %}
+  {% set_global prev_lesson = get_page(path=page.components | slice(start=0, end=2) | concat(with=lesson_list[index] ~ ".md") | join(sep="/")) %}
 {% endif %}
 
 {% if lesson_index != -1 and lesson_index < lesson_list | length - 1 %}
   {% set index = lesson_index + 1 %}
-  {% set_global next_lesson = lesson_list[index] %}
+  {% set_global next_lesson = get_page(path=page.components | slice(start=0, end=2) | concat(with=lesson_list[index] ~ ".md") | join(sep="/")) %}
 {% endif %}
 
 <div id="sidebar-overlay" class="sidebar-overlay"></div>
 <div class="columns">
   <div id="sidebar" class="column sidebar-column">
     <div>
-      {{ snippet::navbar(fixed=false, compact=true) }}
+      {{ base::navbar(fixed=false, compact=true) }}
       <aside class="menu sticky-sidebar">
         <div class="level unit-level">
           <div class="level-left">
-            <a class="mx-1 my-2" {% if prev_unit %} href="{{ get_url(path=path[1] ~ '/' ~ prev_unit ~ '/') }}" {% else %} disabled {% endif %}><i class="fa-solid fa-angle-left"></i>Prev</a>
+            <a class="mx-1 my-2" {% if prev_unit %} href="{{ prev_unit.permalink }}" {% else %} disabled {% endif %}><i class="fa-solid fa-angle-left"></i>Prev</a>
           </div>
           <div class="level-item">
             <div class="dropdown unit-dropdown is-hoverable">
               <div class="dropdown-trigger has-text-centered">
                 <a class="mx-1 my-2" aria-haspopup="true" aria-controls="unit-menu">
-                  {% set unit = get_section(path=path[1] ~ '/' ~ path[2] ~ '/_index.md') %}
-                  {{ unit.title }}<i class="fas fa-angle-down"></i>
+                  {{ unit.title }}<span class="ml-1"><i class="fas fa-angle-down"></i></span>
                 </a>
               </div>
               <div class="dropdown-menu" id="unit-menu" role="menu">
                 <div class="dropdown-content">
                   {% for uid in unit_list %}
-                  {% set unit = get_section(path=path[1] ~ '/' ~ uid ~ '/_index.md') %}
-                  <a class="dropdown-item {% if uid == path[2] %} has-background-primary {% endif %}" {% if uid != path[2] %} {{ unit.permalink }} {% endif %}>{{ unit.title }}</a>
+                  {% set unit = get_section(path=page.components | slice(start=0, end=1) | concat(with=uid ~ "/_index.md") | join(sep="/")) %}
+                  <a class="dropdown-item {% if uid == page.components[1] %} has-background-primary {% endif %}" {% if uid != page.components[1] %} {{ unit.permalink }} {% endif %}>{{ unit.title }}</a>
                   {% endfor %}
                 </div>
               </div>
             </div>
           </div>
           <div class="level-right">
-            <a class="mx-1 my-2" {% if next_unit %} href="{{ get_url(path=path[1] ~ '/' ~ next_unit ~ '/') }}" {% else %} disabled {% endif %}>Next<i class="fa-solid fa-angle-right"></i></a>
+            <a class="mx-1 my-2" {% if next_unit %} href="{{ next_unit.permalink }}" {% else %} disabled {% endif %}>Next<i class="fa-solid fa-angle-right"></i></a>
           </div>
         </div>
         <ul class="menu-list">
-          {% for group, lessons in unit_map %}
+          {% for group, lessons in unit.extra.groups %}
           <li>
             <details class="collapse sidebar-collapse" open="">
               <summary>{{ group }}</summary>
               <ul>
                 {% for lesson_id in lessons %}
-                {% set lesson = get_page(path=path[1] ~ '/' ~ path[2] ~ '/' ~ lesson_id ~ '.md') %}
+                {% set lesson = get_page(path=page.components | slice(start=0, end=2) | concat(with=lesson_id ~ ".md") | join(sep="/")) %}
                 <li>
                   <a href="{{ get_url(path=lesson.path) }}">
                     <span class="mr-2"><i class="fa-solid fa-book-open"></i></span>
@@ -123,21 +121,20 @@
         <div class="level breadcrumb-level is-mobile">
           <div class="level-left">
             <a id="sidebar-open-button" class="button is-hidden-desktop"><i class="fa-solid fa-angles-right"></i></a>
-            <a class="is-hidden-mobile mx-2 my-2" {% if prev_lesson %} href="{{ get_url(path=path[1] ~ '/' ~ path[2] ~ '/' ~ prev_lesson ~ '/') }}" {% else %} disabled {% endif %}><i class="fa-solid fa-angle-left"></i>Prev</a>
+            <a class="is-hidden-mobile mx-2 my-2" {% if prev_lesson %} href="{{ prev_lesson.permalink }}" {% else %} disabled {% endif %}><i class="fa-solid fa-angle-left"></i>Prev</a>
           </div>
           <div class="level-item has-text-centered is-hidden-mobile">
             <nav class="breadcrumb" aria-label="breadcrumbs">
               <ul>
-                <li><a class="my-2" href="{{ get_url(path=path[1] ~ '/') }}">{{ track_map.name }}</a></li>
-                {% set unit = get_section(path=path[1] ~ '/' ~ path[2] ~ '/_index.md') %}
+                <li><a class="my-2" href="{{ track.permalink }}">{{ track.title }}</a></li>
                 <li><a class="my-2" href="{{ unit.permalink }}">{{ unit.title }}</a></li>
                 <li class="is-active"><a class="my-2" aria-current="page">{{ page.title }}</a></li>
               </ul>
             </nav>
           </div>
           <div class="level-right">
-            <a class="is-hidden-tablet mx-2 my-2" {% if prev_lesson %} href="{{ get_url(path=path[1] ~ '/' ~ path[2] ~ '/' ~ prev_lesson ~ '/') }}" {% else %} disabled {% endif %}><i class="fa-solid fa-angle-left"></i>Prev</a>
-            <a class="mx-2 my-2" {% if next_lesson %} href="{{ get_url(path=path[1] ~ '/' ~ path[2] ~ '/' ~ next_lesson ~ '/') }}" {% else %} disabled {% endif %}>Next<i class="fa-solid fa-angle-right"></i></a>
+            <a class="is-hidden-tablet mx-2 my-2" {% if prev_lesson %} href="{{ prev_lesson.permalink }}" {% else %} disabled {% endif %}><i class="fa-solid fa-angle-left"></i>Prev</a>
+            <a class="mx-2 my-2" {% if next_lesson %} href="{{ next_lesson.permalink }}" {% else %} disabled {% endif %}>Next<i class="fa-solid fa-angle-right"></i></a>
           </div>
         </div>
       </div>
@@ -152,7 +149,7 @@
         </section>
       </div>
     </div>
-    {{ snippet::footer() }}
+    {{ base::footer() }}
   </div>
 </div>
 {% endblock content %}
