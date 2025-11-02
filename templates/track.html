@@ -2,17 +2,17 @@
 {% extends "base.html" %}
 
 {% block title %}
-{{ section.title }}
+{{ section.title }} Track
 {% endblock title %}
 
 {% block content %}
 {% set path = section.path | split(pat="/") %}
 {% set track_map = load_data(path="content/" ~ path[1] ~ "/map.json", format="json") %}
 <main class="main-content">
-  <section class="hero is-primary is-medium">
+  <section class="hero track-hero is-primary is-medium">
     <div class="hero-body">
-      <div class="has-text-centered">
-        <h1 class="title is-1 is-spaced">{{ section.title }}</h1>
+      <div class="centered-on-tablet">
+        <h1 class="title is-1 is-spaced">{{ section.title }} Track</h1>
         <p class="subtitle">{{ section.description }}</p>
       </div>
     </div>
@@ -34,7 +34,6 @@
       {{ snippet::unit_lessons(track=path[1], unit=uid) }}
     </div>
     {% endfor %}
-</div>
   </section>
 </main>
 {% endblock content %}

@@ -1,3 +1,12 @@
+.track-hero .subtitle {
+  font-size: 1.375rem;
+  line-height: 1.5;
+  max-width: 40rem;
+  @media screen and (min-width: 769px) {
+    margin-inline: auto;
+  }
+}
+
 .track-toc {
   > .group-grid > .grid {
     --bulma-grid-gap: 2.5rem;

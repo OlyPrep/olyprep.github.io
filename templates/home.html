@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}
+OlyPrep - Olympiad Resources, Unified
+{% endblock title %}
+{% block title_suffix %}
+{% endblock title_suffix %}
+
+{% block content %}
+<main class="main-content">
+  <section class="hero is-fullheight-with-navbar">
+    <div class="hero-body">
+      <div class="centered-on-tablet">
+        <h1 class="title landing-title"><span class="landing-title-oly">Oly</span><span class="landing-title-prep">Prep</span></h1>
+        <h2 class="subtitle landing-subtitle">
+          Free, <strong>high-quality olympiad resources</strong>
+          curated by <strong>top performers and medalists</strong>
+          for the next-generation of winners.
+        </h2>
+        <a class="button landing-button is-primary is-medium" href="#tracks">
+          Get started<span class="ml-2"><i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+      </div>
+    </div>
+  </section>
+  <section id="tracks" class="section home-tracks-section has-background-primary-25">
+    <div class="container is-widescreen">
+      <h2 class="title home-section-title">Take your Pick<span class="ml-2"><i class="fa-solid fa-arrow-right"></i></span></h2>
+      <div class="container is-max-desktop">
+        <p>
+
+        </p>
+      </div>
+      <div class="fixed-grid home-track-grid">
+        <div class="grid">
+          {% for track_id in config.extra.tracks %}
+          {% set track = get_section(path=track_id ~ "/_index.md") %}
+          <div class="grid-cell">
+            <a href="ioi/">
+              <div class="card home-track-card">
+                <div class="card-content">
+                  {% set svg = load_data(path=track_id ~ "/logo.svg", format="plain") %}
+                  {{ svg | safe }}
+                  <div class="home-track-info">
+                    <h3 class="title is-3 is-spaced">{{ track.extra.clickbait_title }}</h3>
+                    <p class="subtitle is-5">{{ track.extra.clickbait_details }}</p>
+                    <p class="subtitle is-5 home-track-go">Start learning<span class="ml-2"><i class="fa-solid fa-arrow-right"></i></span></p>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock content %}

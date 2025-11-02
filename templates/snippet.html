@@ -26,10 +26,12 @@
         <div class="navbar-end">
           <a class="navbar-item" href="/">Home</a>
           <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">Tracks</a>
+            <a href="/#tracks" class="navbar-link">Tracks</a>
             <div class="navbar-dropdown is-boxed">
-              <a class="navbar-item" href="/ioi/">IOI</a>
-              <a class="navbar-item" href="/ijso/">IJSO</a>
+              {% for track_id in config.extra.tracks %}
+              {% set track = get_section(path=track_id ~ "/_index.md") %}
+              <a class="navbar-item" href="/{{ track_id }}/">{{ track.title }}</a>
+              {% endfor %}
             </div>
           </div>
           <a class="navbar-item" href="/blog">Blog</a>
@@ -46,18 +48,10 @@
   <div class="has-text-centered">
     <p class="mb-4">&copy; 2025 OlyPrep contributors.</p>
     <div class="social-links is-size-4">
-      <a class="mx-1" href="https://facebook.com/OlyPrep" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-        <i class="fab fa-facebook-f fa-lg"></i>
-      <a class="mx-1" href="https://discord.gg/" target="_blank" rel="noopener noreferrer" aria-label="Discord">
-        <i class="fab fa-discord fa-lg"></i>
-      </a>
-      <a class="mx-1" href="https://youtube.com/@OlyPrep" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-        <i class="fab fa-youtube fa-lg"></i>
-      <a class="mx-1" href="https://github.com/OlyPrep" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-        <i class="fab fa-github fa-lg"></i>
-      </a>
-      </a>
-      </a>
+      <a class="mx-1" href="https://facebook.com/OlyPrep" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f fa-lg"></i></a>
+      <a class="mx-1" href="https://discord.gg/" target="_blank" rel="noopener noreferrer" aria-label="Discord"><i class="fab fa-discord fa-lg"></i></a>
+      <a class="mx-1" href="https://youtube.com/@OlyPrep" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube fa-lg"></i></a>
+      <a class="mx-1" href="https://github.com/OlyPrep" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github fa-lg"></i></a>
     </div>
   </div>
 </footer>

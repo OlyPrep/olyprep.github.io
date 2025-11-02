@@ -1,0 +1,128 @@
+@media screen and (min-width: 769px) {
+  .centered-on-tablet {
+    text-align: center !important;
+  }
+}
+
+.landing-title {
+  font-size: 5em;
+}
+
+.landing-title-oly {
+  color: #fcfcfc;
+  margin-left: 0;
+}
+.landing-title-prep {
+  color: #e97d28;
+  margin-right: 0;
+}
+
+.landing-subtitle {
+  margin-top: 1.5em;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  max-width: 30rem;
+  @media screen and (min-width: 769px) {
+    margin-inline: auto;
+  }
+}
+
+.landing-button {
+  padding: 0.75rem 1.5rem;
+  margin-top: 0.5em;
+  transition: padding var(--bulma-duration) ease-in-out;
+}
+
+.landing-button > span {
+  transition: padding var(--bulma-duration) ease-in-out;
+}
+
+@media (hover: hover) {
+  .landing-button:hover {
+    padding-right: 1rem;
+  }
+
+  .landing-button:hover > span {
+    padding-left: 0.5rem;
+  }
+}
+
+.home-section-title {
+  font-size: 2.75rem;
+}
+
+.home-tracks-section {
+  scroll-margin-top: var(--bulma-navbar-height);
+}
+
+@media screen and (min-width: 1024px) {
+  .home-track-grid {
+    margin: 0 -1.5rem;
+  }
+}
+
+.home-track-grid > .grid {
+  --bulma-grid-gap: 2rem;
+  @media screen and (max-width: 1023px) {
+    --bulma-grid-column-count: 1;
+  }
+}
+
+.home-track-card {
+  min-height: 12.5em;
+  background-color: var(--bulma-scheme-main-ter);
+  transition: background-color var(--bulma-duration) ease-in-out,
+              transform var(--bulma-duration) ease-in-out;
+}
+
+@media (hover: hover) {
+  .home-track-card:hover {
+    transform: translateY(-0.5em);
+    background-color: var(--bulma-background-hover);
+  }
+}
+
+.home-track-grid .grid-cell {
+  display: flex;
+  flex-direction: column;
+
+  > a {
+    flex-grow: 1;
+
+    > .home-track-card {
+      height: 100%;
+    }
+  }
+}
+
+.home-track-card .card-content {
+  display: flex;
+  flex-direction: row-reverse;
+
+  .home-track-info {
+    flex-grow: 1;
+    padding-right: var(--bulma-card-content-padding);
+  }
+}
+
+.olympiad-logo {
+  height: 7.5em;
+  min-width: 25%;
+  max-width: 25%;
+  //align-self: center;
+  color: var(--bulma-text-strong);
+}
+
+.home-track-go {
+  color: var(--bulma-link-text);
+}
+
+.home-track-go > span {
+  transition: padding var(--bulma-duration) ease-in-out;
+}
+
+@media (hover: hover) {
+  .home-track-card:hover .home-track-go > span {
+    padding-left: 0.75rem;
+  }
+}

@@ -1,6 +1,3 @@
 +++
-title = "Home"
-template = "base.html"
+template = "home.html"
 +++
-
-# Hello World
