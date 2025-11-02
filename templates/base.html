@@ -28,7 +28,8 @@
           <div class="navbar-item has-dropdown is-hoverable">
             <a href="/#tracks" class="navbar-link">Tracks</a>
             <div class="navbar-dropdown is-boxed">
-              {% for track_id in config.extra.tracks %}
+              {% set home = get_section(path="_index.md") %}
+              {% for track_id in home.extra.tracks %}
               {% set track = get_section(path=track_id ~ "/_index.md") %}
               <a class="navbar-item" href="/{{ track_id }}/">{{ track.title }}</a>
               {% endfor %}

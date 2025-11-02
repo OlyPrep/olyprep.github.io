@@ -26,14 +26,9 @@ OlyPrep - Olympiad Resources, Unified
   <section id="tracks" class="section home-tracks-section has-background-primary-25">
     <div class="container is-widescreen">
       <h2 class="title home-section-title">Take your Pick<span class="ml-2"><i class="fa-solid fa-arrow-right"></i></span></h2>
-      <div class="container is-max-desktop">
-        <p>
-
-        </p>
-      </div>
       <div class="fixed-grid home-track-grid">
         <div class="grid">
-          {% for track_id in config.extra.tracks %}
+          {% for track_id in section.extra.tracks %}
           {% set track = get_section(path=track_id ~ "/_index.md") %}
           <div class="grid-cell">
             <a href="ioi/">
@@ -42,8 +37,8 @@ OlyPrep - Olympiad Resources, Unified
                   {% set svg = load_data(path="templates/svg/" ~ track_id ~ ".html", format="plain") %}
                   {{ svg | safe }}
                   <div class="home-track-info">
-                    <h3 class="title home-track-title">{{ track.extra.clickbait_title }}</h3>
-                    <p class="home-track-subtitle">{{ track.extra.clickbait_details }}</p>
+                    <h3 class="title home-track-title">{{ track.extra.hook_title }}</h3>
+                    <p class="home-track-subtitle">{{ track.extra.hook_subtitle }}</p>
                     <div class="home-track-go"><p>Start learning<span class="ml-2"><i class="fa-solid fa-arrow-right"></i></span></p></div>
                   </div>
                 </div>
