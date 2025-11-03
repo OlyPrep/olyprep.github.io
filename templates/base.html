@@ -29,9 +29,11 @@
             <a href="/#tracks" class="navbar-link">Tracks</a>
             <div class="navbar-dropdown is-boxed">
               {% set home = get_section(path="_index.md") %}
-              {% for track_id in home.extra.tracks %}
-              {% set track = get_section(path=track_id ~ "/_index.md") %}
-              <a class="navbar-item" href="/{{ track_id }}/">{{ track.title }}</a>
+              {% for track_index in home.subsections %}
+              {% set track = get_section(path=track_index) %}
+              {% if track.extra.hook_title %}
+              <a class="navbar-item" href="{{ track.permalink }}">{{ track.title }}</a>
+              {% endif %}
               {% endfor %}
             </div>
           </div>

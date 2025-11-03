@@ -188,7 +188,7 @@ body > .columns {
 
   .dropdown-content {
     border: 1px solid var(--bulma-border);
-    overflow-x: scroll;
+    overflow-y: auto;
   }
 
   .dropdown-item {

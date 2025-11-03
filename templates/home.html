@@ -28,14 +28,15 @@ OlyPrep - Olympiad Resources, Unified
       <h2 class="title home-section-title">Take your Pick<span class="ml-2"><i class="fa-solid fa-arrow-right"></i></span></h2>
       <div class="fixed-grid home-track-grid">
         <div class="grid">
-          {% for track_id in section.extra.tracks %}
-          {% set track = get_section(path=track_id ~ "/_index.md") %}
+          {% for track_index in section.subsections %}
+          {% set track = get_section(path=track_index) %}
+          {% if track.extra.hook_title %}
+          {% set track_id = track.components | last %}
           <div class="grid-cell">
-            <a href="ioi/">
+            <a href="{{ track.permalink }}">
               <div class="card home-track-card">
                 <div class="card-content">
-                  {% set svg = load_data(path="templates/svg/" ~ track_id ~ ".html", format="plain") %}
-                  {{ svg | safe }}
+                  {{ load_data(path=track.components | concat(with="track-logo.svg") | join(sep="/"), format="plain") | safe }}
                   <div class="home-track-info">
                     <h3 class="title home-track-title">{{ track.extra.hook_title }}</h3>
                     <p class="home-track-subtitle">{{ track.extra.hook_subtitle }}</p>
@@ -45,6 +46,7 @@ OlyPrep - Olympiad Resources, Unified
               </div>
             </a>
           </div>
+          {% endif %}
           {% endfor %}
         </div>
       </div>

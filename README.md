@@ -62,8 +62,8 @@ A track is the highest-level category. It is defined by an `_index.md` file plac
 
 | Setting Name    | Description                                                                                                                                         |
 |-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| `title`         | The official name of the track (e.g., `"Math Olympiad"`).                                                                                           |
-| `template`      | This should always be `"track.html"`.                                                                                                               |
+| `title`         | The official name of the track (e.g., `"IMO"`).                                                                                           |
+| `template`      | Must be `"track.html"`.                                                                                                                             |
 | `description`   | A detailed description of the track's subject matter.                                                                                               |
 | `hook_title`    | (Under the `[extra]` section) A short, catchy title for the track card on the website homepage.                                                     |
 | `hook_subtitle` | (Under the `[extra]` section) A short, descriptive subtitle for the track card on the website homepage.                                             |
@@ -84,6 +84,26 @@ units = [ "number-theory", "algebra" ]
 +++
 ```
 
+### Track Logo
+
+The track logo is a defined in a SVG file located in the track's main folder.
+
+-   **File Location**: `content/<track_name>/track-logo.svg`
+
+**Format Requirements:**
+
+-   The file must contain valid HTML (i.e. only the `<svg>` tag and its content, no XML declaration or other metadata).
+-   The `<svg>` tag must include `class="olympiad-logo"` and `fill="currentColor"` attributes.
+-   The `<svg>` tag can have any other attributes except `id`.
+
+**Example:**
+
+```html
+<svg class="olympiad-logo" fill="currentColor" viewBox="0 0 512 512">
+  <path id="my-path" d="..." />
+</svg>
+```
+
 ### Unit Files
 
 A unit is a "chapter" within a track. It is defined by an `_index.md` file inside a unit's folder.
@@ -93,9 +113,9 @@ A unit is a "chapter" within a track. It is defined by an `_index.md` file insid
 **Settings:**
 
 | Setting Name     | Description                                                                                                                                                                                                               |
-|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `title`          | The name of the unit (e.g., `"Number Theory"`).                                                                                                                                                                           |
-| `template`       | This should always be `"unit.html"`.                                                                                                                                                                                      |
+| `template`       | Must be `"unit.html"`.                                                                                                                                                                                                    |
 | `description`    | A short description of what the unit covers.                                                                                                                                                                              |
 | `[extra.groups]` | This defines the `[extra.groups]` section. It lets you group lessons within the unit under subheadings. Each group has a title and a list of lesson filenames. The order in the list determines the order on the website. |
 
@@ -124,7 +144,7 @@ A lesson is a single content page.
 | Setting Name  | Description                                                            |
 |---------------|------------------------------------------------------------------------|
 | `title`       | The title of the lesson.                                               |
-| `template`    | This should always be `"lesson.html"`.                                 |
+| `template`    | Must be `"lesson.html"`.                                               |
 | `description` | A brief summary of the lesson's content, used for search and previews. |
 
 **Example:**
