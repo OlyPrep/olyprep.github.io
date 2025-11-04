@@ -21,7 +21,7 @@
     --bulma-grid-gap: 2.5rem;
     --bulma-grid-column-count: 1;
     @media screen and (min-width: 1024px) {
-      --bulma-grid-gap: calc((100% - 8em) / 3 + 8em);
+      --bulma-grid-gap: 2.5rem calc((100% - 8em) / 3 + 8em);
       --bulma-grid-column-count: 2;
     }
   }
@@ -51,11 +51,20 @@
   }
 }
 
+.track-toc-section {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+
+  .track-toc {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+}
+
 .unit-name-sticky {
   position: sticky;
   top: calc(var(--bulma-navbar-height) + 1.5rem);
   width: calc((100% - 8em) / 3);
-  padding-bottom: 0.5rem;
   margin-inline-start: auto;
   margin-inline-end: auto;
   text-align: center;
@@ -78,11 +87,6 @@
 }
 
 @media screen and (max-width: 768px) {
-  .track-toc-section {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-  }
-
   .unit-name-sticky {
     top: var(--bulma-navbar-height);
     width: 100%;
@@ -100,10 +104,6 @@
       margin-bottom: 0;
       margin-inline-end: auto;
     }
-  }
-
-  .track-toc .group-grid {
-    padding-bottom: 1.5rem;
   }
 }
 

@@ -23,7 +23,7 @@
 }
 
 .group-grid > .grid {
-  --bulma-grid-gap: 6.5rem;
+  --bulma-grid-gap: 2.5rem 6.5rem;
   --bulma-grid-column-count: 2;
   @media screen and (max-width: 768px) {
     --bulma-grid-gap: 2.5rem;
@@ -34,6 +34,7 @@
 .lesson-link {
   display: flex;
   flex-direction: row;
+  padding-top: 1.25em;
 }
 
 .lesson-info {
