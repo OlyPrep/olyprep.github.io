@@ -1,0 +1,3 @@
+[submodule "ioi"]
+	path = content/ioi
+	url = git@github.com:OlyPrep/ioi.git
