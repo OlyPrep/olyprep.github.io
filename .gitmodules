@@ -4,3 +4,6 @@
 [submodule "content/imo"]
 	path = content/imo
 	url = https://github.com/OlyPrep/imo.git
+[submodule "content/blog"]
+	path = content/blog
+	url = https://github.com/OlyPrep/blog.git

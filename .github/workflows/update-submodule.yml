@@ -2,7 +2,7 @@ name: Update Submodule
 
 on:
   repository_dispatch:
-    types: [update-ioi-submodule, update-imo-submodule]
+    types: [update-blog-submodule, update-ioi-submodule, update-imo-submodule]
   workflow_dispatch:
     inputs:
       submodule:
@@ -10,6 +10,7 @@ on:
         required: true
         type: choice
         options:
+        - blog
         - ioi
         - imo
 
