@@ -59,7 +59,7 @@
 {% endif %}
 
 <div id="sidebar-overlay" class="sidebar-overlay"></div>
-<div class="columns">
+<div class="columns lesson-columns">
   <div id="sidebar" class="column sidebar-column">
     <div>
       {{ base::navbar(fixed=false, compact=true) }}
@@ -79,7 +79,7 @@
                 <div class="dropdown-content">
                   {% for uid in unit_list %}
                   {% set unit = get_section(path=page.components | slice(start=0, end=1) | concat(with=uid ~ "/_index.md") | join(sep="/")) %}
-                  <a class="dropdown-item {% if uid == page.components[1] %} has-background-primary {% endif %}" {% if uid != page.components[1] %} {{ unit.permalink }} {% endif %}>{{ unit.title }}</a>
+                  <a class="dropdown-item {% if uid == page.components[1] %} has-background-primary {% endif %}" {% if uid != page.components[1] %} href="{{ unit.permalink }}" {% endif %}>{{ unit.title }}</a>
                   {% endfor %}
                 </div>
               </div>
@@ -98,7 +98,7 @@
                 {% for lesson_id in lessons %}
                 {% set lesson = get_page(path=page.components | slice(start=0, end=2) | concat(with=lesson_id ~ ".md") | join(sep="/")) %}
                 <li>
-                  <a href="{{ get_url(path=lesson.path) }}">
+                  <a href="{{ lesson.permalink }}">
                     <span class="mr-2"><i class="fa-solid fa-book-open"></i></span>
                     {{ lesson.title }}
                   </a>
@@ -141,8 +141,9 @@
     </div>
     <div class="main-content">
       <div class="container is-max-desktop">
-        <section class="section">
-          <h1 class="title is-1">{{ page.title }}</h1>
+        <section class="section lesson-section">
+          <h1 class="title is-2">{{ page.title }}</h1>
+          <p class="subtitle is-6 mt-2 is-italic has-text-text-100">{{ page.description }}</p>
           <div class="content">
             {{ page.content | safe }}
           </div>

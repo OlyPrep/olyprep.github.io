@@ -7,11 +7,21 @@
   --bulma-navbar-height: 3.5rem;
 }
 
+@media screen and (max-width: 768px) {
+  :root {
+    --bulma-body-size: 0.9375em;
+  }
+}
+
 .navbar.is-dark {
   --bulma-navbar-background-color: var(--bulma-background);
   --bulma-navbar-item-hover-background-color: var(--bulma-background-hover);
   --bulma-navbar-item-hover-color: var(--bulma-primary);
   --bulma-navbar-item-active-color: var(--bulma-primary);
+}
+
+em, .is-italic {
+  font-family: "Inter var", "SF Pro", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;
 }
 
 .radio + .radio {

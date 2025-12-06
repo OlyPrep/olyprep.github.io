@@ -18,18 +18,28 @@
   <section class="section track-toc-section">
     {% for unit_id in section.extra.units %}
     {% set unit = get_section(path=section.components | concat(with=unit_id ~ "/_index.md") | join(sep="/")) %}
-    <div class="container track-toc is-fullhd">
-      <div class="unit-name-sticky">
-        <div>
-          <h2 class="title is-2">{{ unit.title }}</h2>
-          <p class="is-size-6 mb-5 is-hidden-mobile">{{ unit.description }}</p>
-          <a class="button" href="{{ unit.permalink }}">
-            More<span class="ml-1"><i class="fa-solid fa-arrow-right"></i></span>
-          </a>
+    <div class="container is-fullhd">
+      <div class="unit-info is-hidden-tablet">
+        <h2 class="title is-3">{{ unit.title }}</h2>
+        <a class="button" href="{{ unit.permalink }}">
+          More<span class="ml-1"><i class="fa-solid fa-arrow-right"></i></span>
+        </a>
+      </div>
+      <p class="is-size-6 mt-2 mb-5 is-hidden-tablet">{{ unit.description }}</p>
+      <div class="columns">
+        <div class="column unit-info-column is-5-tablet is-one-third-desktop">
+          <div class="unit-info is-hidden-mobile">
+            <h2 class="title is-3">{{ unit.title }}</h2>
+            <p class="is-size-6 mb-5">{{ unit.description }}</p>
+            <a class="button" href="{{ unit.permalink }}">
+              More<span class="ml-1"><i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+          </div>
+        </div>
+        <div class="column">
+          {{ unit::toc(unit=unit) }}
         </div>
       </div>
-      <p class="is-size-6 mt-2 mb-6 is-hidden-tablet">{{ unit.description }}</p>
-      {{ unit::toc(unit=unit) }}
     </div>
     {% endfor %}
     {% if section.extra.units | length == 0 %}

@@ -1,6 +1,5 @@
-// Override harmful margins
-
-body > .columns {
+.lesson-columns {
+  --sidebar-width: 21.875rem;
   margin-inline: 0;
   margin: 0 !important;
 
@@ -13,15 +12,15 @@ body > .columns {
 
 .sidebar-column {
   flex: none;
-  width: calc(20rem + 1px);
+  width: calc(var(--sidebar-width) + 1px);
   .navbar-overlay {
-    width: 20rem;
+    width: var(--sidebar-width);
   }
   > div {
     position: fixed;
     top: 0;
     left: 0;
-    width: calc(20rem + 1px);
+    width: calc(var(--sidebar-width) + 1px);
     height: 100vh;
     padding-top: var(--bulma-navbar-height);
     border-right: 1px solid var(--bulma-border);
@@ -32,13 +31,12 @@ body > .columns {
   .sidebar-column {
     position: fixed;
     top: 0;
-    left: calc(-20rem - var(--bulma-navbar-height));
-    width: 20rem;
+    left: calc(var(--sidebar-width) * -1 - var(--bulma-navbar-height));
+    width: var(--sidebar-width);
     height: 100%;
     z-index: 15;
     background-color: var(--bulma-scheme-main);
     transition: left var(--bulma-duration) ease-in-out;
-    overflow-y: auto;
   }
 
   .sidebar-column.is-active {
@@ -64,7 +62,7 @@ body > .columns {
   @include navbar-force-dropdown-open;
   position: fixed;
   top: 0;
-  width: 20rem;
+  width: var(--sidebar-width);
 
   > .container {
     display: block;
@@ -251,7 +249,7 @@ body > .columns {
 
 #sidebar-close-button {
   padding: 0.625em;
-  background-color: hsl(221, 14%, 14%);
+  background-color: var(--bulma-background);
 }
 
 .sidebar-close {
@@ -268,7 +266,7 @@ body > .columns {
 
 @media screen and (max-width: 1023px) {
   .sidebar-column.is-active + .sidebar-close {
-    left: 20rem;
+    left: var(--sidebar-width);
   }
 }
 
@@ -277,8 +275,8 @@ body > .columns {
 .breadcrumb-container {
   position: fixed;
   top: 0;
-  left: calc(20rem + 1px);
-  width: calc(100vw - 20rem - 1px);
+  left: calc(var(--sidebar-width) + 1px);
+  width: calc(100vw - var(--sidebar-width) - 1px);
   z-index: 10;
 
   @media screen and (max-width: 1024px)
@@ -311,4 +309,10 @@ body > .columns {
 
 .breadcrumb-container ~ .main-content {
   padding-top: var(--bulma-navbar-height);
+}
+
+// Content
+
+.lesson-section .subtitle {
+  margin-bottom: 2rem;
 }

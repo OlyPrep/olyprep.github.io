@@ -1,36 +1,37 @@
 {% extends "base.html" %}
 
 {% macro toc(unit) %}
-<div class="fixed-grid group-grid">
-  <div class="grid">
-    {% for group, lessons in unit.extra.groups %}
-    {% set group_odd = loop.index % 2 != 0 %}
-    <div class="cell group-cell {% if group_odd %} odd-cell {% else %} even-cell {% endif %}">
-      <h3 class="title mb-3">{{ group }}</h3>
+{% for group, lessons in unit.extra.groups %}
+<div class="lesson-group">
+  <div class="group-title"><p class="title is-3 pb-2">{{ group }}</p></div>
+  <div class="fixed-grid lesson-grid mt-3">
+    <div class="grid">
       {% for lesson_id in lessons %}
       {% set lesson = get_page(path=unit.components | concat(with=lesson_id ~ ".md") | join(sep="/")) %}
-      <a href="{{ lesson.permalink }}">
-        <div class="lesson-link">
-          <p class="is-size-4 lesson-icon"><i class="fa-solid fa-book-open"></i></p>
-          <div class="lesson-info">
-            <p class="is-size-4 lesson-title">{{ lesson.title }}</p>
-            {% if lesson.description %}
-            <p class="is-size-6">{{ lesson.description }}</p>
-            {% endif %}
+      <div class="cell lesson-cell">
+        <a href="{{ lesson.permalink }}">
+          <div class="lesson-link">
+            <p class="is-size-4 lesson-icon"><i class="fa-solid fa-book-open"></i></p>
+            <div class="lesson-info">
+              <p class="is-size-4 lesson-title">{{ lesson.title }}</p>
+              {% if lesson.description %}
+              <p class="is-size-6">{{ lesson.description }}</p>
+              {% endif %}
+            </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
       {% endfor %}
       {% if lessons | length == 0 %}
       <img style="width: 25rem" src="https://i.imgflip.com/4xyjge.png">
       {% endif %}
     </div>
-    {% endfor %}
-    {% if unit.extra.groups | length == 0 %}
-    <div class="has-text-centered"><img style="width: 25rem" src="https://i.imgflip.com/4xyjge.png"></div>
-    {% endif %}
   </div>
 </div>
+{% endfor %}
+{% if unit.extra.groups | length == 0 %}
+<div class="has-text-centered"><img style="width: 25rem" src="https://i.imgflip.com/4xyjge.png"></div>
+{% endif %}
 {% endmacro toc %}
 
 {% block title %}
@@ -53,7 +54,7 @@
       </div>
     </div>
   </section>
-  <section class="section">
+  <section class="section unit-toc-section">
     <div class="container">
       <div class="container is-max-widescreen">
         {{ self::toc(unit=section) }}

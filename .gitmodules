@@ -1,3 +1,6 @@
 [submodule "ioi"]
 	path = content/ioi
 	url = git@github.com:OlyPrep/ioi.git
+[submodule "content/imo"]
+	path = content/imo
+	url = https://github.com/OlyPrep/imo.git

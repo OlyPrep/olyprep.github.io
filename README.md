@@ -8,6 +8,7 @@ The process of writing content has been designed for simplicity. No technical kn
 
 ## Table of Contents
 
+- [Setting Up the Environment](#setting-up-the-environment)
 - [The Basics: How Content Files Work](#the-basics-how-content-files-work)
 - [Content Hierarchy](#content-hierarchy)
 - [File Reference](#file-reference)
@@ -21,6 +22,42 @@ The process of writing content has been designed for simplicity. No technical kn
   - [General Syntax](#general-syntax)
   - [`spoiler`](#spoiler)
   - [`quiz`](#quiz)
+
+## Setting Up the Environment
+
+Before you can start writing, you need to set up your local environment.
+
+1. **Get Git**: Ensure you have Git installed on your system.
+
+2. **Clone the Repository**:
+
+   ```bash
+   git clone https://github.com/OlyPrep/olyprep.github.io.git
+   cd olyprep.github.io
+   ```
+
+3. **Fetch Content**: This repository uses separate submodules for each track. Initialize the one for the track you want to work on. For example, to work on IOI track, you would run:
+
+   ```bash
+   git submodule update --init --recursive content/ioi
+   ```
+
+4. **Build the Site**: We have a helper script that automatically downloads the correct version of Zola and runs it.
+
+   To build and serve the website locally:
+
+   - **Linux/macOS**:
+
+     ```bash
+     ./zola.sh serve
+     ```
+   - **Windows**:
+
+     ```batch
+     .\zola.bat serve
+     ```
+
+   The site will be available at <http://127.0.0.1:1111>. Edits to the files will automatically update the page in your browser.
 
 ## The Basics: How Content Files Work
 
@@ -62,9 +99,10 @@ A track is the highest-level category. It is defined by an `_index.md` file plac
 
 | Setting Name    | Description                                                                                                                                         |
 |-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| `title`         | The official name of the track (e.g., `"IMO"`).                                                                                           |
+| `title`         | The official name of the track (e.g., `"IMO"`).                                                                                                     |
 | `template`      | Must be `"track.html"`.                                                                                                                             |
 | `description`   | A detailed description of the track's subject matter.                                                                                               |
+| `weight`        | Determines the sorting order of tracks. Lower values appear earlier. 1xx: flagship, 2xx: mature, 3xx: beta, 4xx: alpha, 5xx: draft.                 |
 | `hook_title`    | (Under the `[extra]` section) A short, catchy title for the track card on the website homepage.                                                     |
 | `hook_subtitle` | (Under the `[extra]` section) A short, descriptive subtitle for the track card on the website homepage.                                             |
 | `units`         | (Under the `[extra]` section) A list of the unit folder names that belong to this track. The order in the list determines the order on the website. |
@@ -76,6 +114,7 @@ A track is the highest-level category. It is defined by an `_index.md` file plac
 title = "IMO"
 template = "track.html"
 description = "From number theory to combinatorics, master the art of mathematical problem-solving."
+weight = 240
 
 [extra]
 hook_title = "Math"

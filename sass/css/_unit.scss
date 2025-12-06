@@ -4,11 +4,11 @@
     padding-bottom: 1.125rem;
   }
   .subtitle {
-    font-size: 1.375rem;
     line-height: 1.5;
-    max-width: 40ch;
     @media screen and (min-width: 769px) {
       margin-inline: auto;
+      font-size: 1.375rem;
+      max-width: 40ch;
     }
   }
   .button, .button span {
@@ -22,11 +22,35 @@
   }
 }
 
-.group-grid > .grid {
-  --bulma-grid-gap: 2.5rem 6.5rem;
+.unit-toc-section {
+  --bulma-section-padding: 1.5rem;
+  --bulma-section-padding-desktop: 1.5rem 3rem;
+}
+
+.lesson-group {
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.5rem;
+}
+
+.group-title {
+  position: sticky;
+  top: var(--bulma-navbar-height);
+  align-self: flex-start;
+  width: 100%;
+  padding-top: 1rem;
+  padding-bottom: 0.25rem;
+  background-color: var(--bulma-scheme-main);
+}
+
+.lesson-grid {
+  padding-bottom: 1.5rem;
+}
+
+.lesson-grid > .grid {
   --bulma-grid-column-count: 2;
+  gap: 1rem 1.5rem;
   @media screen and (max-width: 768px) {
-    --bulma-grid-gap: 2.5rem;
     --bulma-grid-column-count: 1;
   }
 }
@@ -34,88 +58,41 @@
 .lesson-link {
   display: flex;
   flex-direction: row;
-  padding-top: 1.25em;
 }
 
 .lesson-info {
   flex-grow: 1;
 }
 
-.group-cell > a {
+.lesson-cell > a {
   text-decoration: none;
   color: var(--bulma-text);
 }
 
 @media (hover: hover) {
-  .group-cell > a:hover {
+  .lesson-cell > a:hover {
     text-decoration: none;
     color: var(--bulma-text-light);
   }
 }
 
-.group-cell > a > div {
+.lesson-link {
+  padding-left: 0;
+  padding-right: 1rem;
   transition: padding var(--bulma-duration) ease-in-out;
 }
 
-.even-cell > a > div {
-  padding-left: 0;
-  padding-right: 1rem;
-}
-
 @media (hover: hover) {
-  .even-cell > a:hover > div {
+  .lesson-cell > a:hover .lesson-link {
     padding-left: 1rem;
     padding-right: 0;
   }
 }
 
-@media screen and (max-width: 768px) {
-  .odd-cell > a > div {
-    padding-left: 0;
-    padding-right: 1rem;
-  }
-
-  @media (hover: hover) {
-    .odd-cell > a:hover > div {
-      padding-left: 1rem;
-      padding-right: 0;
-    }
-  }
-}
-
-.odd-cell .lesson-link .lesson-icon {
+.lesson-icon {
   margin-right: 0.5rem;
-}
-
-.even-cell .lesson-link .lesson-icon {
-  margin-right: 0.5rem;
-}
-
-@media screen and (min-width: 769px) {
-  .odd-cell {
-    text-align: right;
-    .lesson-link {
-      flex-direction: row-reverse;
-      .lesson-icon {
-        margin-right: 0;
-        margin-left: 0.5rem;
-      }
-    }
-  }
-
-  .odd-cell > a > div {
-    padding-left: 1rem;
-    padding-right: 0;
-  }
-
-  @media (hover: hover) {
-    .odd-cell > a:hover > div {
-      padding-left: 0;
-      padding-right: 1rem;
-    }
-  }
 }
 
 .hero > .hero-body > div {
-  width: 100%
+  width: 100%;
 }
