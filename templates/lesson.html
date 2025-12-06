@@ -94,7 +94,19 @@
                 <div class="dropdown-content">
                   {% for uid in unit_list %}
                   {% set unit = get_section(path=page.components | slice(start=0, end=1) | concat(with=uid ~ "/_index.md") | join(sep="/")) %}
-                  <a class="dropdown-item {% if uid == page.components[1] %} has-background-primary {% endif %}" {% if uid != page.components[1] %} href="{{ unit.permalink }}" {% endif %}>{{ unit.title }}</a>
+                  {% if uid == page.components[1] %}
+                  <a class="dropdown-item has-background-primary">{{ unit.title }}</a>
+                  {% else %}
+                  {% set_global first_lesson = [] %}
+                  {% for group, lessons in unit.extra.groups %}
+                  {% for lesson_id in lessons %}
+                  {% if not first_lesson %}
+                  {% set_global first_lesson = get_page(path=unit.components | concat(with=lesson_id ~ ".md") | join(sep="/")) %}
+                  {% endif %}
+                  {% endfor %}
+                  {% endfor %}
+                  <a class="dropdown-item" href="{{ first_lesson.permalink }}">{{ unit.title }}</a>
+                  {% endif %}
                   {% endfor %}
                 </div>
               </div>
