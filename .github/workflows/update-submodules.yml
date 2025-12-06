@@ -1,0 +1,67 @@
+name: Update Submodule
+
+on:
+  repository_dispatch:
+    types: [update-ioi-submodule, update-imo-submodule]
+  workflow_dispatch:
+    inputs:
+      track:
+        description: 'Submodule:'
+        required: true
+        type: choice
+        options:
+        - ioi
+        - imo
+
+permissions:
+  contents: write
+
+jobs:
+  update-submodule:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Determine Submodule Path
+        id: setup
+        run: |
+          if [ "${{ github.event_name }}" == "repository_dispatch" ]; then
+            # Expected format: update-XXX, extracts XXX
+            SUBMODULE_NAME=$(echo "${{ github.event.action }}" | sed 's/^update-\(.*\)-submodule$/\1/')
+          else
+            SUBMODULE_NAME="${{ inputs.track }}"
+          fi
+
+          # Dynamically set path and track name without whitelist
+          SUBMODULE_PATH="content/$SUBMODULE_NAME"
+          # Convert to uppercase for display (e.g. ioi -> IOI)
+          TRACK_NAME=$(echo "$SUBMODULE_NAME" | tr '[:lower:]' '[:upper:]')
+
+          echo "submodule_path=$SUBMODULE_PATH" >> $GITHUB_OUTPUT
+          echo "track_name=$TRACK_NAME" >> $GITHUB_OUTPUT
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Update Submodule
+        run: |
+          git submodule update --remote ${{ steps.setup.outputs.submodule_path }}
+
+      - name: Commit and Push Changes
+        run: |
+          # Check if there are changes
+          if git diff --quiet; then
+            echo "No changes in submodule"
+            exit 0
+          fi
+
+          # Get the new commit hash of the submodule
+          NEW_HASH=$(git submodule status ${{ steps.setup.outputs.submodule_path }} | awk '{print $1}' | cut -c 2-8)
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add ${{ steps.setup.outputs.submodule_path }}
+          git commit -m "Update ${{ steps.setup.outputs.track_name }} submodule to commit $NEW_HASH"
+          git push
