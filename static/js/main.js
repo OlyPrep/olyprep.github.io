@@ -60,5 +60,14 @@ document.addEventListener('DOMContentLoaded', () => {
         sidebarOverlay.classList.remove('is-active');
       });
     }
+
+    // Close sidebar when a TOC link is clicked
+    const tocLinks = sidebar.querySelectorAll('.sidebar-toc a');
+    tocLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        sidebar.classList.remove('is-active');
+        sidebarOverlay.classList.remove('is-active');
+      });
+    });
   };
 });

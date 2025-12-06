@@ -1,6 +1,21 @@
 {% import "base.html" as base %}
 {% extends "base.html" %}
 
+{% macro sidebar_toc(toc, level=1) %}
+{% if toc %}
+<ul class="toc sidebar-toc">
+  {% for head in toc %}
+  <li>
+    <a class="toc-level-{{ level }}" href="{{ head.permalink | safe }}">
+      {{ head.title }}
+    </a>
+    {{ self::sidebar_toc(toc=head.children, level=level + 1) }}
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endmacro sidebar_toc %}
+
 {% block html_class %}{% endblock html_class %}
 
 {% block header %}
@@ -98,10 +113,24 @@
                 {% for lesson_id in lessons %}
                 {% set lesson = get_page(path=page.components | slice(start=0, end=2) | concat(with=lesson_id ~ ".md") | join(sep="/")) %}
                 <li>
+                  {% if lesson.permalink == page.permalink %}
+                  <details id="currentLesson" class="collapse sidebar-toc-collapse" open="">
+                    <summary>
+                      <div>
+                        <span class="mr-2"><i class="fa-solid fa-book-open"></i></span>
+                        {{ lesson.title }}
+                      </div>
+                    </summary>
+                    {{ self::sidebar_toc(toc=page.toc) }}
+                  </details>
+                  {% else %}
                   <a href="{{ lesson.permalink }}">
-                    <span class="mr-2"><i class="fa-solid fa-book-open"></i></span>
-                    {{ lesson.title }}
+                    <div>
+                      <span class="mr-2"><i class="fa-solid fa-book-open"></i></span>
+                      {{ lesson.title }}
+                    </div>
                   </a>
+                  {% endif %}
                 </li>
                 {% endfor %}
               </ul>
@@ -110,6 +139,19 @@
           {% endfor %}
         </ul>
       </aside>
+      <script>
+        (function() {
+          const sidebar = document.querySelector('.sticky-sidebar');
+          const currentLesson = document.getElementById('currentLesson');
+          if (sidebar && currentLesson) {
+            const sidebarRect = sidebar.getBoundingClientRect();
+            const currentLessonRect = currentLesson.getBoundingClientRect();
+            const relativeTop = currentLessonRect.top - sidebarRect.top;
+            const offset = sidebar.clientHeight * 0.20;
+            sidebar.scrollTop = sidebar.scrollTop + relativeTop - offset;
+          }
+        })();
+      </script>
     </div>
   </div>
   <div class="sidebar-close">
@@ -144,6 +186,11 @@
         <section class="section lesson-section">
           <h1 class="title is-2">{{ page.title }}</h1>
           <p class="subtitle is-6 mt-2 is-italic has-text-text-100">{{ page.description }}</p>
+          {% if page.toc %}
+          <p class="title toc-title is-4 mt-5 mb-3">Table of Contents</p>
+          {{ base::toc(toc=page.toc) }}
+          {% endif %}
+          <hr class="content-separator">
           <div class="content">
             {{ page.content | safe }}
           </div>

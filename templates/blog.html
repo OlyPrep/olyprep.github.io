@@ -1,32 +1,35 @@
+{% import "base.html" as base %}
 {% extends "base.html" %}
 
 {% block content %}
 <main class="main-content">
   <section class="section">
     <div class="container is-max-desktop">
+      <h1 class="title is-2 mb-4">{{ page.title }}</h1>
+      <p class="subtitle is-6">
+        <span class="author">
+          {% if page.authors | length == 1 %}
+          {{ page.authors[0] }}
+          {% else %}
+          {{ page.authors | slice(end = page.authors | length - 1) | join(sep=", ") }}
+          and {{ page.authors | last }}
+          {% endif %}
+        </span> —
+        <time datetime="{{ page.date | date(format='%Y-%m-%d') }}">
+          {{ page.date | date(format='%B %e, %Y') }}
+        </time>
+        {% if page.updated and page.updated != page.date %}
+        — <time datetime="{{ page.updated | date(format='%Y-%m-%d') }}">
+          Updated on {{ page.updated | date(format='%B %e, %Y') }}
+        </time>
+        {% endif %}
+      </p>
+      {% if page.toc %}
+      <p class="title toc-title is-4 mt-5 mb-3">Table of Contents</p>
+      {{ base::toc(toc=page.toc) }}
+      {% endif %}
+      <hr class="content-separator">
       <div class="content">
-        <div class="">
-          <h1 class="title is-1 is-spaced">{{ page.title }}</h1>
-          <p class="subtitle is-6">
-            <span class="author">
-              {% if page.authors | length == 1 %}
-              {{ page.authors[0] }}
-              {% else %}
-              {{ page.authors | slice(end = page.authors | length - 1) | join(sep=", ") }}
-              and {{ page.authors | last }}
-              {% endif %}
-            </span> —
-            <time datetime="{{ page.date | date(format='%Y-%m-%d') }}">
-              {{ page.date | date(format='%B %e, %Y') }}
-            </time>
-            {% if page.updated and page.updated != page.date %}
-            — <time datetime="{{ page.updated | date(format='%Y-%m-%d') }}">
-              Updated on {{ page.updated | date(format='%B %e, %Y') }}
-            </time>
-            {% endif %}
-          </p>
-        </div>
-        <hr/>
         {{ page.content | safe }}
       </div>
     </div>

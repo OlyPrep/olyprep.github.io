@@ -46,6 +46,21 @@
 </header>
 {% endmacro navbar %}
 
+{% macro toc(toc, level=1) %}
+{% if toc %}
+<ul class="toc">
+  {% for head in toc %}
+  <li>
+    <div class="toc-level-{{ level }}">
+      <a href="{{ head.permalink | safe }}">{{ head.title }}</a>
+    </div>
+    {{ base::toc(toc=head.children, level=level + 1) }}
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endmacro sidebar_toc %}
+
 {% macro footer() %}
 <footer class="footer">
   <div class="has-text-centered">
