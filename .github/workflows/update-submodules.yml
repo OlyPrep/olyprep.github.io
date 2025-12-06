@@ -5,7 +5,7 @@ on:
     types: [update-ioi-submodule, update-imo-submodule]
   workflow_dispatch:
     inputs:
-      track:
+      submodule:
         description: 'Submodule:'
         required: true
         type: choice
@@ -20,23 +20,17 @@ jobs:
   update-submodule:
     runs-on: ubuntu-latest
     steps:
-      - name: Determine Submodule Path
+      - name: Determine Submodule
         id: setup
         run: |
           if [ "${{ github.event_name }}" == "repository_dispatch" ]; then
-            # Expected format: update-XXX, extracts XXX
             SUBMODULE_NAME=$(echo "${{ github.event.action }}" | sed 's/^update-\(.*\)-submodule$/\1/')
           else
-            SUBMODULE_NAME="${{ inputs.track }}"
+            SUBMODULE_NAME="${{ inputs.submodule }}"
           fi
 
-          # Dynamically set path and track name without whitelist
-          SUBMODULE_PATH="content/$SUBMODULE_NAME"
-          # Convert to uppercase for display (e.g. ioi -> IOI)
-          TRACK_NAME=$(echo "$SUBMODULE_NAME" | tr '[:lower:]' '[:upper:]')
-
-          echo "submodule_path=$SUBMODULE_PATH" >> $GITHUB_OUTPUT
-          echo "track_name=$TRACK_NAME" >> $GITHUB_OUTPUT
+          echo "submodule_name=$SUBMODULE_NAME" >> $GITHUB_OUTPUT
+          echo "submodule_path=content/$SUBMODULE_NAME" >> $GITHUB_OUTPUT
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -63,5 +57,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           git add ${{ steps.setup.outputs.submodule_path }}
-          git commit -m "Update ${{ steps.setup.outputs.track_name }} submodule to commit $NEW_HASH"
+          git commit -m "Update ${{ steps.setup.outputs.submodule_name }} submodule to commit $NEW_HASH"
           git push
