@@ -15,10 +15,6 @@
   --bulma-navbar-item-active-color: var(--bulma-primary);
 }
 
-em, .is-italic {
-  font-family: "Inter var", "SF Pro", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;
-}
-
 .radio + .radio {
   margin-inline-start: 0em;
 }
@@ -62,3 +58,12 @@ em, .is-italic {
   margin-bottom: var(--bulma-content-block-margin-bottom);
   overflow-x: auto;
 }
+
+html, body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+  letter-spacing: normal;
+}
+
