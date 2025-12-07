@@ -34,7 +34,7 @@
     <div class="container is-fullhd">
       <div class="unit-info is-hidden-tablet">
         <h2 class="title is-3">{{ unit.title }}</h2>
-        <a class="button" href="{{ unit.permalink }}">
+        <a class="button" href="{{ unit.permalink }}" aria-label="More about {{ unit.title }}">
           More<span class="ml-1"><i class="fa-solid fa-arrow-right"></i></span>
         </a>
       </div>
@@ -44,7 +44,7 @@
           <div class="unit-info is-hidden-mobile">
             <h2 class="title is-3">{{ unit.title }}</h2>
             <p class="is-size-6 mb-5">{{ unit.description }}</p>
-            <a class="button" href="{{ unit.permalink }}">
+            <a class="button" href="{{ unit.permalink }}" aria-label="More about {{ unit.title }}">
               More<span class="ml-1"><i class="fa-solid fa-arrow-right"></i></span>
             </a>
           </div>
