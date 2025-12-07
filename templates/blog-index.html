@@ -1,5 +1,18 @@
 {% extends "base.html" %}
 
+{% block head_meta %}
+<meta name="description" content="The OlyPrep Blog.">
+<meta property="og:title" content="OlyPrep Blog">
+<meta property="og:description" content="The OlyPrep Blog.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ section.permalink }}">
+<meta property="og:image" content="{{ get_url(path='assets/logo.svg') }}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OlyPrep Blog">
+<meta name="twitter:description" content="The OlyPrep Blog.">
+<meta name="twitter:image" content="{{ get_url(path='assets/logo.svg') }}">
+{% endblock head_meta %}
+
 {% block content %}
 <main class="main-content">
   <section class="hero unit-hero is-primary is-small">
@@ -27,11 +40,9 @@
               <div class="card-content">
                 <p class="title is-4">{{ post.title }}</p>
                 <time datetime="{{ post.date | date(format='%Y-%m-%d') }}">{{ post.date | date(format="%B %e, %Y") }}</time>
-                {% if post.summary %}
                 <div class="content">
                   {{ post.summary | safe }}
                 </div>
-                {% endif %}
                 <div class="blog-card-go"><p class="mt-3">Read more<span class="ml-1"><i class="fa-solid fa-arrow-right"></i></span></p></div>
               </div>
             </div>

@@ -1,8 +1,20 @@
 {% extends "base.html" %}
 
 {% block title %}
-Page Not Found (404)
+Page Not Found
 {% endblock title %}
+
+{% block head_meta %}
+<meta name="description" content="This page does not exist.">
+<meta property="og:title" content="Page Not Found">
+<meta property="og:description" content="This page does not exist.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="{{ get_url(path='assets/logo.svg') }}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Page Not Found">
+<meta name="twitter:description" content="This page does not exist.">
+<meta name="twitter:image" content="{{ get_url(path='assets/logo.svg') }}">
+{% endblock head_meta %}
 
 {% block content %}
 <main class="main-content">

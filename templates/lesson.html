@@ -18,6 +18,26 @@
 
 {% block html_class %}{% endblock html_class %}
 
+{% block head_meta %}
+<meta name="description" content="{{ page.description }}">
+<meta property="og:title" content="{{ page.title }}">
+<meta property="og:description" content="{{ page.description }}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ page.permalink }}">
+<meta property="og:image" content="{{ get_url(path='assets/logo.svg') }}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{ page.title }}">
+<meta name="twitter:description" content="{{ page.description }}">
+<meta name="twitter:image" content="{{ get_url(path='assets/logo.svg') }}">
+{% endblock head_meta %}
+
+{% block head_extra %}
+<!-- KaTeX -->
+<link href="{{ get_url(path='vendor/katex/katex.min.css') }}" rel="stylesheet">
+<script defer src="{{ get_url(path='vendor/katex/katex.min.js') }}"></script>
+<script defer src="{{ get_url(path='vendor/katex/contrib/auto-render.min.js') }}" onload='renderMathInElement(document.body, { delimiters: [ {left: "$$", right: "$$", display: true}, {left: "$", right: "$", display: false}, {left: "\\(", right: "\\)", display: false}, {left: "\\begin{equation}", right: "\\end{equation}", display: true}, {left: "\\begin{align}", right: "\\end{align}", display: true}, {left: "\\begin{alignat}", right: "\\end{alignat}", display: true}, {left: "\\begin{gather}", right: "\\end{gather}", display: true}, {left: "\\begin{CD}", right: "\\end{CD}", display: true}, {left: "\\[", right: "\\]", display: true} ] });'></script>
+{% endblock head_extra %}
+
 {% block header %}
 {% endblock header %}
 

@@ -6,6 +6,19 @@ OlyPrep - Olympiad Resources, Unified
 {% block title_suffix %}
 {% endblock title_suffix %}
 
+{% block head_meta %}
+<meta name="description" content="Free, high-quality olympiad resources curated by top performers and medalists for the next-generation of winners.">
+<meta property="og:title" content="OlyPrep">
+<meta property="og:description" content="Free, high-quality olympiad resources curated by top performers and medalists for the next-generation of winners.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ section.permalink }}">
+<meta property="og:image" content="{{ get_url(path='assets/logo.svg') }}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OlyPrep">
+<meta name="twitter:description" content="Free, high-quality olympiad resources curated by top performers and medalists for the next-generation of winners.">
+<meta name="twitter:image" content="{{ get_url(path='assets/logo.svg') }}">
+{% endblock head_meta %}
+
 {% block content %}
 <main class="main-content">
   <section class="hero is-fullheight-with-navbar">

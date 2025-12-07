@@ -39,6 +39,19 @@
 {{ section.title }} - {{ track.title }}
 {% endblock title %}
 
+{% block head_meta %}
+<meta name="description" content="{{ section.description }}">
+<meta property="og:title" content="{{ section.title }} - {{ track.title }}">
+<meta property="og:description" content="{{ section.description }}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ section.permalink }}">
+<meta property="og:image" content="{{ get_url(path='assets/logo.svg') }}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{ section.title }} - {{ track.title }}">
+<meta name="twitter:description" content="{{ section.description }}">
+<meta name="twitter:image" content="{{ get_url(path='assets/logo.svg') }}">
+{% endblock head_meta %}
+
 {% block content %}
 {% set track = get_section(path=section.components | slice(start=0, end=1) | concat(with="_index.md") | join(sep="/")) %}
 <main class="main-content">

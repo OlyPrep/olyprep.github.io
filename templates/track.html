@@ -5,6 +5,19 @@
 {{ section.title }} Track
 {% endblock title %}
 
+{% block head_meta %}
+<meta name="description" content="{{ section.description }}">
+<meta property="og:title" content="{{ section.title }} Track">
+<meta property="og:description" content="{{ section.description }}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ section.permalink }}">
+<meta property="og:image" content="{{ get_url(path='assets/logo.svg') }}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{ section.title }} Track">
+<meta name="twitter:description" content="{{ section.description }}">
+<meta name="twitter:image" content="{{ get_url(path='assets/logo.svg') }}">
+{% endblock head_meta %}
+
 {% block content %}
 <main class="main-content">
   <section class="hero track-hero is-primary">
