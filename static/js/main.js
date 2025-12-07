@@ -70,4 +70,14 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   };
+
+  // Table wrapping for accessibility
+  const tables = document.querySelectorAll('.content table');
+  tables.forEach(table => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'table-wrapper';
+    table.parentNode.insertBefore(wrapper, table);
+    wrapper.appendChild(table);
+    table.classList.add('wrapped-scrollable-table');
+  });
 });

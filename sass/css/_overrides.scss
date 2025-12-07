@@ -62,3 +62,13 @@ a[disabled] {
   transition-property: border-color;
   width: 0.625em;
 }
+
+.content table:not(.wrapped-scrollable-table) {
+  display: block;
+  overflow-x: auto;
+}
+
+.table-wrapper {
+  margin-bottom: var(--bulma-content-block-margin-bottom);
+  overflow-x: auto;
+}
