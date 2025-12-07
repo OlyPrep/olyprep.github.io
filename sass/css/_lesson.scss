@@ -388,6 +388,6 @@
 
 .lesson-section {
   h1, h2, h3, h4, h5, h6 {
-    scroll-margin-top: var(--bulma-navbar-height);
+    scroll-margin-top: calc(var(--bulma-navbar-height) + 0.625em);
   }
 }
