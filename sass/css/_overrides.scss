@@ -28,11 +28,6 @@ em, .is-italic {
   margin-inline-start: 0em;
 }
 
-a[disabled] {
-  color: var(--bulma-text-weak);
-  cursor: not-allowed;
-}
-
 .navbar-dropdown a.navbar-item {
   padding-inline-end: 2rem;
 }

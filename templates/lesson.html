@@ -81,7 +81,17 @@
       <aside class="menu sticky-sidebar">
         <div class="level unit-level">
           <div class="level-left">
-            <a class="mx-1 my-2" {% if prev_unit %} href="{{ prev_unit.permalink }}" {% else %} disabled {% endif %}><i class="fa-solid fa-angle-left"></i>Prev</a>
+            {% set_global first_lesson = [] %}
+            {% if prev_unit %}
+            {% for group, lessons in prev_unit.extra.groups %}
+            {% for lesson_id in lessons %}
+            {% if not first_lesson %}
+            {% set_global first_lesson = get_page(path=prev_unit.components | concat(with=lesson_id ~ ".md") | join(sep="/")) %}
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+            {% endif %}
+            <a class="mx-1 my-2 {% if not prev_unit %} is-disabled {% endif %}" {% if prev_unit %} href="{{ first_lesson.permalink }}" {% endif %}><i class="fa-solid fa-angle-left"></i>Prev</a>
           </div>
           <div class="level-item">
             <div class="dropdown unit-dropdown is-hoverable">
@@ -113,7 +123,17 @@
             </div>
           </div>
           <div class="level-right">
-            <a class="mx-1 my-2" {% if next_unit %} href="{{ next_unit.permalink }}" {% else %} disabled {% endif %}>Next<i class="fa-solid fa-angle-right"></i></a>
+            {% set_global first_lesson = [] %}
+            {% if next_unit %}
+            {% for group, lessons in next_unit.extra.groups %}
+            {% for lesson_id in lessons %}
+            {% if not first_lesson %}
+            {% set_global first_lesson = get_page(path=next_unit.components | concat(with=lesson_id ~ ".md") | join(sep="/")) %}
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+            {% endif %}
+            <a class="mx-1 my-2 {% if not next_unit %} is-disabled {% endif %}" {% if next_unit %} href="{{ first_lesson.permalink }}" {% endif %}>Next<i class="fa-solid fa-angle-right"></i></a>
           </div>
         </div>
         <ul class="menu-list">
@@ -175,7 +195,7 @@
         <div class="level breadcrumb-level is-mobile">
           <div class="level-left">
             <a id="sidebar-open-button" class="button is-hidden-desktop"><i class="fa-solid fa-angles-right"></i></a>
-            <a class="is-hidden-mobile mx-2 my-2" {% if prev_lesson %} href="{{ prev_lesson.permalink }}" {% else %} disabled {% endif %}><i class="fa-solid fa-angle-left"></i>Prev</a>
+            <a class="is-hidden-mobile mx-2 my-2 {% if not prev_lesson %} is-disabled {% endif %}" {% if prev_lesson %} href="{{ prev_lesson.permalink }}" {% endif %}><i class="fa-solid fa-angle-left"></i>Prev</a>
           </div>
           <div class="level-item has-text-centered is-hidden-mobile">
             <nav class="breadcrumb" aria-label="breadcrumbs">
@@ -187,8 +207,8 @@
             </nav>
           </div>
           <div class="level-right">
-            <a class="is-hidden-tablet mx-2 my-2" {% if prev_lesson %} href="{{ prev_lesson.permalink }}" {% else %} disabled {% endif %}><i class="fa-solid fa-angle-left"></i>Prev</a>
-            <a class="mx-2 my-2" {% if next_lesson %} href="{{ next_lesson.permalink }}" {% else %} disabled {% endif %}>Next<i class="fa-solid fa-angle-right"></i></a>
+            <a class="is-hidden-tablet mx-2 my-2 {% if not prev_lesson %} is-disabled {% endif %}" {% if prev_lesson %} href="{{ prev_lesson.permalink }}" {% endif %}><i class="fa-solid fa-angle-left"></i>Prev</a>
+            <a class="mx-2 my-2 {% if not next_lesson %} is-disabled {% endif %}" {% if next_lesson %} href="{{ next_lesson.permalink }}" {% endif %}>Next<i class="fa-solid fa-angle-right"></i></a>
           </div>
         </div>
       </div>
