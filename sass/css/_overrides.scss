@@ -5,12 +5,7 @@
   --bulma-primary-l: 50%;
   --bulma-link-text-hover: #e97d28;
   --bulma-navbar-height: 3.5rem;
-}
-
-@media screen and (max-width: 768px) {
-  :root {
-    --bulma-body-size: 0.9375em;
-  }
+  --bulma-body-size: clamp(0.71875em, 3.875vw, 1em);
 }
 
 .navbar.is-dark {
