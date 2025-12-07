@@ -1,0 +1,30 @@
+.meme-404-tablet {
+  text-align: right;
+  margin-right: 0.375em;
+
+  img {
+    max-width: 25em;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+}
+
+.meme-404-mobile {
+  width: 50%;
+  max-width: 13.75em;
+
+  img {
+    max-width: 13.75em;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+}
+
+.column-404 {
+  .button {
+    --bulma-control-size: 1.125em;
+    --bulma-control-radius: 0.4375em;
+  }
+}

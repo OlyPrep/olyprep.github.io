@@ -1,17 +1,33 @@
 {% extends "base.html" %}
 
 {% block title %}
-404
+Page Not Found (404)
 {% endblock title %}
 
 {% block content %}
 <main class="main-content">
   <section class="section">
-    <div class="container is-max-widescreen">
-      <h1 class="title is-1 is-spaced">Ooopps</h1>
-      <h2 class="subtitle is-3">Looks like you lost your way...</h2>
-      <div class="mb-4"><img style="width: 25rem" src="https://i.imgflip.com/4xyjge.png"></div>
-      <h3 class="subtitle is-5">Maybe go back to <a href="/">home</a>?</h3>
+    <div class="container is-max-desktop">
+      <div class="columns is-vcentered is-mobile">
+        <div class="column is-hidden-mobile is-half meme-404-tablet">
+          <img src="/assets/404-landscape.webp" title="Our expert search team looking for the page" alt="Our Search Team: Blind Bart, and... none">
+        </div>
+        <div class="column column-404">
+          <h1 class="title is-1 is-spaced">404</h1>
+          <h2 class="subtitle is-4">We looked everywhere, really.</h2>
+          <div class="is-hidden-mobile">
+            <p class="is-size-5">Even our sophisticated search process failed. This page mustn't exist.</p>
+            <a class="button is-primary mt-5" href="/">Return Home</a>
+          </div>
+        </div>
+        <div class="column is-hidden-tablet meme-404-mobile">
+          <img src="/assets/404-portrait.webp" title="Our expert search team looking for the page" alt="Our Search Team: Blind Bart, and... none">
+        </div>
+      </div>
+    </div>
+    <div class="is-hidden-tablet mt-5">
+      <p class="is-size-5">Even our sophisticated search process failed. This page mustn't exist.</p>
+      <a class="button is-primary mt-5" href="/">Return Home</a>
     </div>
   </section>
 </main>
